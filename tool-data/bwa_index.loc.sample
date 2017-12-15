@@ -1,0 +1,14 @@
+#-rw-r--r--  1 james    universe 830134 2005-09-13 10:12 phiX.fa.amb
+#-rw-r--r--  1 james    universe 527388 2005-09-13 10:12 phiX.fa.ann
+#-rw-r--r--  1 james    universe 269808 2005-09-13 10:12 phiX.fa.bwt
+#...etc...
+#
+#Your bwa_index.loc file should include an entry per line for each
+#index set you have stored. The "file" in the path does not actually
+#exist, but it is the prefix for the actual index files.  For example:
+#
+#phiX174                                phiX    phiX174                 /depot/data2/galaxy/phiX/base/phiX.fa
+#hg18canon                              hg18    hg18 Canonical  /depot/data2/galaxy/hg18/base/hg18canon.fa
+#hg18full                               hg18    hg18 Full               /depot/data2/galaxy/hg18/base/hg18full.fa
+#/orig/path/hg19.fa             hg19    hg19                    /depot/data2/galaxy/hg19/base/hg19.fa
+#...etc...

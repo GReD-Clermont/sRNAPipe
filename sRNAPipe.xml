@@ -1,0 +1,226 @@
+<tool id="sRNAPipe" name="sRNAPipe" version="0.0.1">
+  <description>In-depth study of small RNA</description>
+  <command interpreter="perl">
+
+    ./bin/sRNAPipe.pl
+
+    --fastq ${first_input}
+    --fastq_n ${first_input.name}
+    #for $input_file in $input_files:
+    --fastq ${input_file.additional_input}
+    --fastq_n ${input_file.additional_input.name}
+    #end for
+
+    #if $Genome.refGenomeSource == "history":
+    --ref "${Genome.ownFile}"
+    --build_index
+    #else:
+    --ref "${Genome.indices.fields.path}"
+    #end if
+
+    #if $tRNAs.refGenomeSource == "history":
+    --tRNAs "${tRNAs.ownFile}"
+    --build_tRNAs
+    #else:
+    --tRNAs "${tRNAs.indices.fields.path}"
+    #end if
+
+    #if $snRNAs.refGenomeSource == "history":
+    --snRNAs "${snRNAs.ownFile}"
+    --build_snRNAs
+    #else:
+    --snRNAs "${snRNAs.indices.fields.path}"
+    #end if
+
+    #if $miRNAs.refGenomeSource == "history":
+    --miRNAs "${miRNAs.ownFile}"
+    --build_miRNAs
+    #else:
+    --miRNAs "${miRNAs.indices.fields.path}"
+    #end if
+
+    #if $transcripts.refGenomeSource == "history":
+    --transcripts "${transcripts.ownFile}"
+    --build_transcripts
+    #else:
+    --transcripts "${transcripts.indices.fields.path}"
+    #end if
+
+    #if $TE.refGenomeSource == "history":
+    --TE "${TE.ownFile}"
+    --build_TE
+    #else:
+    --TE "${TE.indices.fields.path}"
+    #end if
+
+    #if $rRNAs.refGenomeSource == "history":
+    --rRNAs "${rRNAs.ownFile}"
+    --build_rRNAs
+    #else:
+    --rRNAs "${rRNAs.indices.fields.path}"
+    #end if
+
+    --si_min $si_min
+    --si_max $si_max
+    --pi_min $pi_min
+    --pi_max $pi_max
+    --min $min
+    --max $max
+
+    --mis  $mis
+    --misTE $misTE
+    --dir $html_out.files_path
+    --html $html_out
+    --PPPon $PPPon
+  </command>
+
+  <requirements>
+    <requirement type="package" version="0.7.15">bwa</requirement>
+    <requirement type="package" version="2.26.0">bedtools</requirement>
+    <requirement type="package" version="1.5">samtools</requirement>
+  </requirements>
+
+  <inputs>
+    <param format="fastqsanger" name="first_input" type="data" label="fastqsanger (Q33)" help=""/>
+    <repeat name="input_files" title="Additional Fastq Files">
+      <param format="fastqsanger" name="additional_input" type="data" label="fastqsanger (Q33)" help=""/>
+    </repeat>
+    <conditional name="Genome">
+      <param name="refGenomeSource" type="select" label="Will you select a reference genome from your history or use a built-in index?">
+        <option value="indexed">Use a built-in index</option>
+        <option value="history">Use one from the history</option>
+      </param>
+      <when value="indexed">
+        <param name="indices" type="select" label="Select a reference genome">
+          <options from_data_table="bwa_indexes">
+            <filter type="sort_by" column="2" />
+            <validator type="no_options" message="No indexes are available" />
+          </options>
+        </param>
+      </when>
+      <when value="history">
+        <param name="ownFile" type="data" format="fasta" metadata_name="dbkey" label="Select a reference from history" />
+      </when>
+    </conditional>
+    <conditional name="TE">
+      <param name="refGenomeSource" type="select" label="Will you select TE database from your history or use a built-in index?">
+        <option value="indexed">Use a built-in index</option>
+        <option value="history">Use one from the history</option>
+      </param>
+      <when value="indexed">
+        <param name="indices" type="select" label="Select a TE reference">
+          <options from_data_table="bwa_indexes">
+            <filter type="sort_by" column="2" />
+            <validator type="no_options" message="No indexes are available" />
+          </options>
+        </param>
+      </when>
+      <when value="history">
+        <param name="ownFile" type="data" format="fasta" metadata_name="dbkey" label="Select a reference from history" />
+      </when>
+    </conditional>
+    <conditional name="miRNAs">
+      <param name="refGenomeSource" type="select" label="Will you select miRNA database from your history or use a built-in index?">
+        <option value="indexed">Use a built-in index</option>
+        <option value="history">Use one from the history</option>
+      </param>
+      <when value="indexed">
+        <param name="indices" type="select" label="Select a miRNA reference">
+          <options from_data_table="bwa_indexes">
+            <filter type="sort_by" column="2" />
+            <validator type="no_options" message="No indexes are available" />
+          </options>
+        </param>
+      </when>
+      <when value="history">
+        <param name="ownFile" type="data" format="fasta" metadata_name="dbkey" label="Select a reference from history" />
+      </when>
+    </conditional>
+    <conditional name="snRNAs">
+      <param name="refGenomeSource" type="select" label="Will you select snRNA database from your history or use a built-in index?">
+        <option value="indexed">Use a built-in index</option>
+        <option value="history">Use one from the history</option>
+      </param>
+      <when value="indexed">
+        <param name="indices" type="select" label="Select a snRNAs reference">
+          <options from_data_table="bwa_indexes">
+            <filter type="sort_by" column="2" />
+            <validator type="no_options" message="No indexes are available" />
+          </options>
+        </param>
+      </when>
+      <when value="history">
+        <param name="ownFile" type="data" format="fasta" metadata_name="dbkey" label="Select a reference from history" />
+      </when>
+    </conditional>
+    <conditional name="rRNAs">
+      <param name="refGenomeSource" type="select" label="Will you select rRNAs database from your history or use a built-in index?">
+        <option value="indexed">Use a built-in index</option>
+        <option value="history">Use one from the history</option>
+      </param>
+      <when value="indexed">
+        <param name="indices" type="select" label="Select a rRNAs reference">
+          <options from_data_table="bwa_indexes">
+            <filter type="sort_by" column="2" />
+            <validator type="no_options" message="No indexes are available" />
+          </options>
+        </param>
+      </when>
+      <when value="history">
+        <param name="ownFile" type="data" format="fasta" metadata_name="dbkey" label="Select a reference from history" />
+      </when>
+    </conditional>
+    <conditional name="tRNAs">
+      <param name="refGenomeSource" type="select" label="Will you select tRNA database from your history or use a built-in index?">
+        <option value="indexed">Use a built-in index</option>
+        <option value="history">Use one from the history</option>
+      </param>
+      <when value="indexed">
+        <param name="indices" type="select" label="Select a tRNA reference">
+          <options from_data_table="bwa_indexes">
+            <filter type="sort_by" column="2" />
+            <validator type="no_options" message="No indexes are available" />
+          </options>
+        </param>
+      </when>
+      <when value="history">
+        <param name="ownFile" type="data" format="fasta" metadata_name="dbkey" label="Select a reference from history" />
+      </when>
+    </conditional>
+    <conditional name="transcripts">
+      <param name="refGenomeSource" type="select" label="Will you select transcripts database from your history or use a built-in index?">
+        <option value="indexed">Use a built-in index</option>
+        <option value="history">Use one from the history</option>
+      </param>
+      <when value="indexed">
+        <param name="indices" type="select" label="Select a transcripts reference">
+          <options from_data_table="bwa_indexes">
+            <filter type="sort_by" column="2" />
+            <validator type="no_options" message="No indexes are available" />
+          </options>
+        </param>
+      </when>
+      <when value="history">
+        <param name="ownFile" type="data" format="fasta" metadata_name="dbkey" label="Select a reference from history" />
+      </when>
+    </conditional>
+    <param name="min" type="integer" value="18" label="minimum read size"/>
+    <param name="max" type="integer" value="29" label="maximum read size"/>
+    <param name="si_min" type="integer" value="21" label="lower bound of siRNA range"/>  
+    <param name="si_max" type="integer" value="21" label="higher bound of siRNA range"/>
+    <param name="pi_min" type="integer" value="23" label="lower bound of piRNA range"/>
+    <param name="pi_max" type="integer" value="29" label="higher bound of piRNA range"/>
+
+    <param name="mis" type="integer" value="0" label="maximal genome mismatches"/>
+    <param name="misTE" type="integer" value="3" label="maximal TE mismatches"/>
+    <param name="PPPon" type="boolean" checked="true" label="PPPartners"/>
+  </inputs>
+  <outputs>
+    <data  format="html" name="html_out" label="${tool.name}_${first_input.name}_${on_string}"/>
+
+       <collection format ="fastqsanger" type="list" label="${tool.name}_fastq_outputs" name="output_fastqsanger">
+            <discover_datasets format ="fastqsanger" pattern="(?P&lt;name&gt;.*)" directory="fastq_dir" />
+        </collection>
+
+  </outputs>
+</tool>

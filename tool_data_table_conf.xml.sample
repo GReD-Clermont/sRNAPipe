@@ -1,0 +1,7 @@
+<tables>
+    <!-- Locations of configurations -->
+    <table name="bwa_indexes" comment_char="#">
+        <columns>value, dbkey, name, path</columns>
+        <file path="tool-data/bwa_index.loc" />
+    </table>
+</tables>
