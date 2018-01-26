@@ -7,6 +7,7 @@ our @ISA = qw( Exporter );
 our @EXPORT_OK = qw( &subgroups );
 
 use POSIX;
+use File::Copy;
 use FindBin;
 use lib $FindBin::Bin;
 use align qw ( get_hash_alignment );
@@ -27,30 +28,54 @@ sub subgroups
 	my $reject_miRNAs = $dir.'miRNAs_rejected.fastq';
 	my $sam_miRNAs = $dir.'miRNAs.sam'; 
 	my @tmp = get_hash_alignment($miRNAs, $mis, 1, 1, $accept_miRNas, $reject_miRNAs, $fin, $proc, 'miRNAs',$sam_miRNAs, $report);
-	my $mi = $tmp[0];
+	my $mi = $tmp[0]; my $sam = '';
 	$repartition{'miRNAs'} = $mi;
 
-	my $sam = new String::Random;
-	$sam = $sam->randpattern("CCcccccc");
+
 	my $reject_rRNAs = $dir.'rRNAs_rejected.fastq';
-	@tmp = get_hash_alignment($rRNAs, $mis, 0, 1, 'NA', $reject_rRNAs, $reject_miRNAs, $proc, 'rRNAs', $sam, $report);
-	$repartition{'rRNAs'} = $tmp[0];
-	unlink $sam, $sam.'_aln.err', $sam.'_samse.err';
+	if ( $rRNAs eq 'None')
+	{
+		move($reject_miRNAs,$reject_rRNAs);
+	}
+	else
+	{
+		$sam = new String::Random;
+		$sam = $sam->randpattern("CCcccccc");
+		@tmp = get_hash_alignment($rRNAs, $mis, 0, 1, 'NA', $reject_rRNAs, $reject_miRNAs, $proc, 'rRNAs', $sam, $report);
+		$repartition{'rRNAs'} = $tmp[0];
+		unlink $sam, $sam.'_aln.err', $sam.'_samse.err';
+	}
 
-	$sam = new String::Random;
-	$sam = $sam->randpattern("CCcccccc");
-	my $reject_tRNAs = $dir.'tRNAs_rejected.fastq';
-	@tmp = get_hash_alignment($tRNAs, $mis, 0, 1, 'NA', $reject_tRNAs, $reject_rRNAs, $proc, 'tRNAs', $sam, $report);
-	$repartition{'tRNAs'} = $tmp[0];
-	unlink $sam, $sam.'_aln.err', $sam.'_samse.err';
+	my $reject_tRNAs = $dir.'rRNAs_rejected.fastq';
+	if ( $rRNAs eq 'None')
+	{
+		move($reject_rRNAs,$reject_tRNAs);
+	}
+	else
+	{
+		$sam = new String::Random;
+		$sam = $sam->randpattern("CCcccccc");
+		@tmp = get_hash_alignment($tRNAs, $mis, 0, 1, 'NA', $reject_tRNAs, $reject_rRNAs, $proc, 'tRNAs', $sam, $report);
+		$repartition{'tRNAs'} = $tmp[0];
+		unlink $sam, $sam.'_aln.err', $sam.'_samse.err';
+	}
 
-	$sam = new String::Random;
-	$sam = $sam->randpattern("CCcccccc");
+
 	my $bonafide = $dir.'bonafide_reads.fastq';
-	@tmp = get_hash_alignment($snRNAs, $mis, 0, 1, 'NA', $bonafide, $reject_tRNAs, $proc, 'snRNAs', $sam, $report);
-	$repartition{'snRNAs'} = $tmp[0];
+	if ( $rRNAs eq 'None')
+	{
+		move($reject_tRNAs,$bonafide);
+	}
+	else
+	{
+		$sam = new String::Random;
+		$sam = $sam->randpattern("CCcccccc");
+		@tmp = get_hash_alignment($snRNAs, $mis, 0, 1, 'NA', $bonafide, $reject_tRNAs, $proc, 'snRNAs', $sam, $report);
+		$repartition{'snRNAs'} = $tmp[0];
+
+		unlink $sam, $sam.'_aln.err', $sam.'_samse.err';
+	}
 	my $bo = $tmp[1];
-	unlink $sam, $sam.'_aln.err', $sam.'_samse.err';
 
 	my $sam_transcripts = $dir.'transcripts.sam'; 
 	my $reject_transcripts = $dir.'rejected_transcripts.fastq';

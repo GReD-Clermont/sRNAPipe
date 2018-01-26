@@ -21,6 +21,8 @@
     #if $tRNAs.refGenomeSource == "history":
     --tRNAs "${tRNAs.ownFile}"
     --build_tRNAs
+    #elif $tRNAs.refGenomeSource == "none":
+    --tRNAs "None"
     #else:
     --tRNAs "${tRNAs.indices.fields.path}"
     #end if
@@ -28,8 +30,19 @@
     #if $snRNAs.refGenomeSource == "history":
     --snRNAs "${snRNAs.ownFile}"
     --build_snRNAs
+    #elif $snRNAs.refGenomeSource == "none":
+    --snRNAs "None"
     #else:
     --snRNAs "${snRNAs.indices.fields.path}"
+    #end if
+
+    #if $rRNAs.refGenomeSource == "history":
+    --rRNAs "${rRNAs.ownFile}"
+    --build_rRNAs
+    #elif $rRNAs.refGenomeSource == "none":
+    --rRNAs "None"
+    #else:
+    --rRNAs "${rRNAs.indices.fields.path}"
     #end if
 
     #if $miRNAs.refGenomeSource == "history":
@@ -53,13 +66,6 @@
     --TE "${TE.indices.fields.path}"
     #end if
 
-    #if $rRNAs.refGenomeSource == "history":
-    --rRNAs "${rRNAs.ownFile}"
-    --build_rRNAs
-    #else:
-    --rRNAs "${rRNAs.indices.fields.path}"
-    #end if
-
     --si_min $si_min
     --si_max $si_max
     --pi_min $pi_min
@@ -75,9 +81,9 @@
   </command>
 
   <requirements>
-    <requirement type="package" version="0.7.15">bwa</requirement>
-    <requirement type="package" version="2.26.0">bedtools</requirement>
-    <requirement type="package" version="1.5">samtools</requirement>
+    <requirement type="package" version="0.7.12">bwa</requirement>
+    <requirement type="package" version="2.24">bedtools</requirement>
+    <requirement type="package" version="1.2">samtools</requirement>
   </requirements>
 
   <inputs>
@@ -92,6 +98,23 @@
       </param>
       <when value="indexed">
         <param name="indices" type="select" label="Select a reference genome">
+          <options from_data_table="bwa_indexes">
+            <filter type="sort_by" column="2" />
+            <validator type="no_options" message="No indexes are available" />
+          </options>
+        </param>
+      </when>
+      <when value="history">
+        <param name="ownFile" type="data" format="fasta" metadata_name="dbkey" label="Select a reference from history" />
+      </when>
+    </conditional>
+    <conditional name="transcripts">
+      <param name="refGenomeSource" type="select" label="Will you select transcripts database from your history or use a built-in index?">
+        <option value="indexed">Use a built-in index</option>
+        <option value="history">Use one from the history</option>
+      </param>
+      <when value="indexed">
+        <param name="indices" type="select" label="Select a transcripts reference">
           <options from_data_table="bwa_indexes">
             <filter type="sort_by" column="2" />
             <validator type="no_options" message="No indexes are available" />
@@ -140,6 +163,7 @@
       <param name="refGenomeSource" type="select" label="Will you select snRNA database from your history or use a built-in index?">
         <option value="indexed">Use a built-in index</option>
         <option value="history">Use one from the history</option>
+        <option value="none">None</option>
       </param>
       <when value="indexed">
         <param name="indices" type="select" label="Select a snRNAs reference">
@@ -157,6 +181,7 @@
       <param name="refGenomeSource" type="select" label="Will you select rRNAs database from your history or use a built-in index?">
         <option value="indexed">Use a built-in index</option>
         <option value="history">Use one from the history</option>
+        <option value="none">None</option>
       </param>
       <when value="indexed">
         <param name="indices" type="select" label="Select a rRNAs reference">
@@ -174,6 +199,7 @@
       <param name="refGenomeSource" type="select" label="Will you select tRNA database from your history or use a built-in index?">
         <option value="indexed">Use a built-in index</option>
         <option value="history">Use one from the history</option>
+        <option value="none">None</option>
       </param>
       <when value="indexed">
         <param name="indices" type="select" label="Select a tRNA reference">
@@ -187,23 +213,7 @@
         <param name="ownFile" type="data" format="fasta" metadata_name="dbkey" label="Select a reference from history" />
       </when>
     </conditional>
-    <conditional name="transcripts">
-      <param name="refGenomeSource" type="select" label="Will you select transcripts database from your history or use a built-in index?">
-        <option value="indexed">Use a built-in index</option>
-        <option value="history">Use one from the history</option>
-      </param>
-      <when value="indexed">
-        <param name="indices" type="select" label="Select a transcripts reference">
-          <options from_data_table="bwa_indexes">
-            <filter type="sort_by" column="2" />
-            <validator type="no_options" message="No indexes are available" />
-          </options>
-        </param>
-      </when>
-      <when value="history">
-        <param name="ownFile" type="data" format="fasta" metadata_name="dbkey" label="Select a reference from history" />
-      </when>
-    </conditional>
+
     <param name="min" type="integer" value="18" label="minimum read size"/>
     <param name="max" type="integer" value="29" label="maximum read size"/>
     <param name="si_min" type="integer" value="21" label="lower bound of siRNA range"/>  

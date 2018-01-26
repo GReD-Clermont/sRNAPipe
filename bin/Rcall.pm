@@ -33,7 +33,7 @@ sub histogram
       min = min(size) 
       max = max(size) 
       dat = data.frame(size,percentage)
-      png(filename=\"$out_png\", width = 800, height = 480)
+      png(filename=\"$out_png\", width = 640, height = 640)
       c = ggplot(dat,aes(size,percentage))
       c + geom_bar(stat="identity") + scale_x_continuous(breaks=min:max)+theme( axis.text.x = element_text(angle=90, hjust=0.5, size=20), axis.text.y = element_text( size=20 ), axis.title.x = element_text( size=25, face="bold"), axis.title.y = element_text( size=25, face="bold") )
       dev.off()`);
