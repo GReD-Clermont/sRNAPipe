@@ -11,7 +11,7 @@ use Rcall qw ( histogram );
 
 use Exporter;
 our @ISA     = qw( Exporter );
-our @EXPORT  = qw( &BWA_call &to_build &get_unique &sam_sorted_bam &get_hash_alignment &sam_to_bam_bg &sam_count &sam_count_mis &rpms_rpkm &get_fastq_seq &extract_sam );
+our @EXPORT  = qw( &rpms_rpkm_te &BWA_call &to_build &get_unique &sam_sorted_bam &get_hash_alignment &sam_to_bam_bg &sam_count &sam_count_mis &rpms_rpkm &get_fastq_seq &extract_sam );
 
 sub to_build
 {
@@ -284,26 +284,107 @@ sub sam_count_mis
       if ($_ =~ /\@SQ\tSN:(.*)\tLN:(\d*)/)
       {
 				$size{$1} = $2;
-				$number{$1} = 0;
-				$numberNM{$1} = 0;
-				$numberM{$1} = 0;
+				$number{$1} = [0,0,0,0,0];
+				$numberNM{$1} = [0,0,0,0,0];
+				$numberM{$1} = [0,0,0,0,0];
 			}
 		}
 		else
 		{
 			my @line = split (/\t/,$_);
-			if ( $line[1]  & 16 || $line[1] == 0 )
+      my @seq = split //, $line[9];
+			if ( $line[1]  == 16 || $line[1] == 0 )
 			{
-				$number{ $line[2] }++;
+				$number{ $line[2] }->[0]++;
+        if ($line[1]  == 0) 
+        { 
+          $number{$line[2]}->[1]++;
+          $number{$line[2]}->[3]++ if $seq[0] eq 'T';
+        } 
+        else 
+        { 
+          $number{$line[2]}->[2]++ if $seq[9] eq 'A';
+        } 
     	 	if ($_ =~ /.*XM:i:(\d+).*/)
     	 	{
-        	if ( $1 == 0 ){ $numberNM{$line[2]}++; } else { $numberM{$line[2]}++; } 
+        	if ( $1 == 0 )
+          { 
+            $numberNM{$line[2]}->[0]++;
+            if ($line[1]  == 0) 
+            { 
+              $numberNM{$line[2]}->[1]++; 
+              $numberNM{$line[2]}->[3]++ if $seq[0] eq 'T';
+            }
+            else 
+            {
+              $numberNM{$line[2]}->[2]++; 
+              $numberNM{$line[2]}->[4]++ if $seq[9] eq 'A';
+            } 
+          }
+          else 
+          {
+            $numberM{$line[2]}->[0]++; 
+            if ($line[1]  == 0) 
+            { 
+              $numberM{$line[2]}->[1]++;
+              $numberM{$line[2]}->[3]++ if $seq[0] eq 'T'; 
+            } 
+            else
+            { 
+              $numberM{$line[2]}->[2]++; 
+              $numberN{$line[2]}->[4]++ if $seq[9] eq 'A';
+            } 
+          } 
       	}
 			}
 		}
 	}
 	return (\%number, \%size, \%numberNM, \%numberM );
 }
+
+sub rpms_rpkm_te
+{
+  my ( $counthashR, $sizehashR, $mapped, $out_file, $piRNA_number, $miRNA_number, $bonafide_number ) =@_;
+  open(my $out, ">".$out_file) || die "cannot open normalized file $! \n";
+  print $out "ID\treads counts\tRPKM\tsens reads counts\treverse reads counts\t% of sens 1U\t% of reverse 10A";
+  print $out "\tper million of piRNAs" if ($piRNA_number != 0);
+  print $out "\tper million of miRNAs" if ($miRNA_number != 0);
+  print $out "\tper million of bonafide reads" if ($bonafide_number != 0);
+  print $out "\n";
+  foreach my $k  ( sort keys %{$counthashR} )
+  {
+    my ($rpkm, $pirna, $mirna, $bonafide) = (0,0,0,0);
+    
+    $rpkm = ( $counthashR->{$k}->[0] * 1000000000) / ( $sizehashR->{$k} * $mapped) if ( $sizehashR->{$k} * $mapped) != 0 ;
+    print $out $k."\t".$counthashR->{$k}->[0]."\t"; printf $out "%.2f",$rpkm;
+    print $out "\t".$counthashR->{$k}->[1]."\t".$counthashR->{$k}->[2] ;
+    my $U1 = 0;
+    $U1 = $counthashR->{$k}->[3] / $counthashR->{$k}->[1] * 100 if $counthashR->{$k}->[1] != 0;
+    my $A10 = 0;
+    $A10 = $counthashR->{$k}->[4] / $counthashR->{$k}->[2] * 100 if $counthashR->{$k}->[2] != 0;
+    
+    print $out "\t".$U1."\t".$A10;
+
+    if ($piRNA_number != 0 )
+    {
+      $pirna = ( $counthashR->{$k}->[0]  * 1000000) / $piRNA_number;
+      printf $out "\t%.2f",$pirna;
+    }
+    if ($miRNA_number != 0 )
+    {
+      $mirna = ( $counthashR->{$k}->[0]  * 1000000) / $miRNA_number;
+      printf $out "\t%.2f",$mirna;
+    }
+    if ($bonafide_number != 0 )
+    {
+      $bonafide = ( $counthashR->{$k}->[0]  * 1000000) / $bonafide_number;
+      printf $out "\t%.2f",$bonafide;
+    }
+    print $out "\n";
+  }
+  close $out;
+}
+
 
 sub sam_to_bam_bg
 {

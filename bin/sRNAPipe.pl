@@ -212,9 +212,9 @@ foreach my $child ( 0 .. $#fastq )
 		my $TEs_count_file = $type_dir.$type_prefix.'TEs_reads_counts.txt';
 		my $TEs_count_file_M = $type_dir.$type_prefix.'TEs_reads_counts_mismatches.txt';
 		my $TEs_count_file_noM = $type_dir.$type_prefix.'TEs_reads_counts_nomismatches.txt';
-		rpms_rpkm( $TEs_count, $TEs_ref_size, $ma, $TEs_count_file, $pi, $mi, $bo );
-		rpms_rpkm( $TEs_count_NoM, $TEs_ref_size, $ma, $TEs_count_file_noM, $pi, $mi, $bo );
-		rpms_rpkm( $TEs_count_M, $TEs_ref_size, $ma, $TEs_count_file_M, $pi, $mi, $bo );
+		rpms_rpkm_te( $TEs_count, $TEs_ref_size, $ma, $TEs_count_file, $pi, $mi, $bo );
+		rpms_rpkm_te( $TEs_count_NoM, $TEs_ref_size, $ma, $TEs_count_file_noM, $pi, $mi, $bo );
+		rpms_rpkm_te( $TEs_count_M, $TEs_ref_size, $ma, $TEs_count_file_M, $pi, $mi, $bo );
 
 		sam_to_bam_bg ( $type_sam_TEs, $scale, $grand_child );
 		sam_sorted_bam ( $type_sam_transcripts, $grand_child ); sam_sorted_bam ( $type_sam_uni_transcripts, $grand_child ); 
