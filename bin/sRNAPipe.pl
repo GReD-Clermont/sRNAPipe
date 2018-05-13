@@ -12,7 +12,7 @@ use resize qw ( size_distribution );
 use subgroups qw (subgroups );
 use ppp qw ( ping_pong_partners );
 use Rcall qw (pie_chart bg_to_png );
-use align qw ( to_build get_unique sam_count sam_count_mis sam_sorted_bam rpms_rpkm BWA_call get_fastq_seq extract_sam sam_to_bam_bg );
+use align qw ( to_build get_unique sam_count sam_count_mis sam_sorted_bam rpms_rpkm rpms_rpkm_te BWA_call get_fastq_seq extract_sam sam_to_bam_bg );
 use html qw ( main_page details_pages menu_page ppp_page );
 use File::Copy;
 
