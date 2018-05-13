@@ -303,7 +303,8 @@ sub sam_count_mis
         } 
         else 
         { 
-          $number{$line[2]}->[2]++ if $seq[9] eq 'A';
+          $number{$line[2]}->[2]++
+          $number{$line[2]}->[4]++ if $seq[9] eq 'A';
         } 
     	 	if ($_ =~ /.*XM:i:(\d+).*/)
     	 	{
