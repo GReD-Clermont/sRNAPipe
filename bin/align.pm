@@ -332,7 +332,7 @@ sub sam_count_mis
             else
             { 
               $numberM{$line[2]}->[2]++; 
-              $numberN{$line[2]}->[4]++ if $seq[9] eq 'A';
+              $numberM{$line[2]}->[4]++ if $seq[9] eq 'A';
             } 
           } 
       	}
