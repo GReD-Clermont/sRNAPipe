@@ -284,9 +284,9 @@ sub sam_count_mis
       if ($_ =~ /\@SQ\tSN:(.*)\tLN:(\d*)/)
       {
 				$size{$1} = $2;
-				$number{$1} = [0,0,0,0,0];
-				$numberNM{$1} = [0,0,0,0,0];
-				$numberM{$1} = [0,0,0,0,0];
+				$number{$1} = [0,0,0,0,0,0,0];
+				$numberNM{$1} = [0,0,0,0,0,0,0];
+				$numberM{$1} = [0,0,0,0,0,0,0];
 			}
 		}
 		else
@@ -300,11 +300,13 @@ sub sam_count_mis
         { 
           $number{$line[2]}->[1]++;
           $number{$line[2]}->[3]++ if $seq[0] eq 'T';
+          $number{$line[2]}->[5]++ if $seq[9] eq 'A';
         } 
         else 
         { 
           $number{$line[2]}->[2]++;
           $number{$line[2]}->[4]++ if $seq[9] eq 'A';
+          $number{$line[2]}->[6]++ if $seq[0] eq 'T';
         } 
     	 	if ($_ =~ /.*XM:i:(\d+).*/)
     	 	{
@@ -315,11 +317,13 @@ sub sam_count_mis
             { 
               $numberNM{$line[2]}->[1]++; 
               $numberNM{$line[2]}->[3]++ if $seq[0] eq 'T';
+              $numberNM{$line[2]}->[5]++ if $seq[9] eq 'A';
             }
             else 
             {
               $numberNM{$line[2]}->[2]++; 
               $numberNM{$line[2]}->[4]++ if $seq[9] eq 'A';
+              $numberNM{$line[2]}->[6]++ if $seq[0] eq 'T';
             } 
           }
           else 
@@ -328,12 +332,14 @@ sub sam_count_mis
             if ($line[1]  == 0) 
             { 
               $numberM{$line[2]}->[1]++;
-              $numberM{$line[2]}->[3]++ if $seq[0] eq 'T'; 
+              $numberM{$line[2]}->[3]++ if $seq[0] eq 'T';
+              $numberM{$line[2]}->[5]++ if $seq[9] eq 'A'; 
             } 
             else
             { 
               $numberM{$line[2]}->[2]++; 
               $numberM{$line[2]}->[4]++ if $seq[9] eq 'A';
+              $numberM{$line[2]}->[6]++ if $seq[0] eq 'T';
             } 
           } 
       	}
@@ -347,24 +353,18 @@ sub rpms_rpkm_te
 {
   my ( $counthashR, $sizehashR, $mapped, $out_file, $piRNA_number, $miRNA_number, $bonafide_number ) =@_;
   open(my $out, ">".$out_file) || die "cannot open normalized file $! \n";
-  print $out "ID\treads counts\tRPKM\tsens reads counts\treverse reads counts\t% of sens 1U\t% of reverse 10A";
+  print $out "ID\treads counts\tRPKM";
   print $out "\tper million of piRNAs" if ($piRNA_number != 0);
   print $out "\tper million of miRNAs" if ($miRNA_number != 0);
   print $out "\tper million of bonafide reads" if ($bonafide_number != 0);
-  print $out "\n";
+  print $out "\tsens reads counts\treverse reads counts";
+  print $out "\t% of sens 1U\t% of sens 10A\t% of reverse 1U\t% of reverse 10A\n";
   foreach my $k  ( sort keys %{$counthashR} )
   {
     my ($rpkm, $pirna, $mirna, $bonafide) = (0,0,0,0);
     
     $rpkm = ( $counthashR->{$k}->[0] * 1000000000) / ( $sizehashR->{$k} * $mapped) if ( $sizehashR->{$k} * $mapped) != 0 ;
     print $out $k."\t".$counthashR->{$k}->[0]."\t"; printf $out "%.2f",$rpkm;
-    print $out "\t".$counthashR->{$k}->[1]."\t".$counthashR->{$k}->[2] ;
-    my $U1 = 0;
-    $U1 = $counthashR->{$k}->[3] / $counthashR->{$k}->[1] * 100 if $counthashR->{$k}->[1] != 0;
-    my $A10 = 0;
-    $A10 = $counthashR->{$k}->[4] / $counthashR->{$k}->[2] * 100 if $counthashR->{$k}->[2] != 0;
-    
-    print $out "\t".$U1."\t".$A10;
 
     if ($piRNA_number != 0 )
     {
@@ -381,6 +381,19 @@ sub rpms_rpkm_te
       $bonafide = ( $counthashR->{$k}->[0]  * 1000000) / $bonafide_number;
       printf $out "\t%.2f",$bonafide;
     }
+
+    print $out "\t".$counthashR->{$k}->[1]."\t".$counthashR->{$k}->[2] ;
+    my $S1U = 0;
+    $S1U = $counthashR->{$k}->[3] / $counthashR->{$k}->[1] * 100 if $counthashR->{$k}->[1] != 0;
+    my $R1U = 0;
+    $R1U = $counthashR->{$k}->[6] / $counthashR->{$k}->[2] * 100 if $counthashR->{$k}->[2] != 0;
+    my $S10A = 0;
+    $SA10 = $counthashR->{$k}->[5] / $counthashR->{$k}->[1] * 100 if $counthashR->{$k}->[1] != 0;
+    my $R10A = 0;
+    $R10A = $counthashR->{$k}->[4] / $counthashR->{$k}->[2] * 100 if $counthashR->{$k}->[2] != 0;
+            
+    print $out "\t".$S1U."\t".$S10A."\t".$R1U."\t".$R10A;
+
     print $out "\n";
   }
   close $out;
