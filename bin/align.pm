@@ -388,7 +388,7 @@ sub rpms_rpkm_te
     my $R1U = 0;
     $R1U = $counthashR->{$k}->[6] / $counthashR->{$k}->[2] * 100 if $counthashR->{$k}->[2] != 0;
     my $S10A = 0;
-    $SA10 = $counthashR->{$k}->[5] / $counthashR->{$k}->[1] * 100 if $counthashR->{$k}->[1] != 0;
+    $S10A = $counthashR->{$k}->[5] / $counthashR->{$k}->[1] * 100 if $counthashR->{$k}->[1] != 0;
     my $R10A = 0;
     $R10A = $counthashR->{$k}->[4] / $counthashR->{$k}->[2] * 100 if $counthashR->{$k}->[2] != 0;
             
