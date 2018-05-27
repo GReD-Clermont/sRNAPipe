@@ -233,4 +233,12 @@
         </collection>
 
   </outputs>
+  <help>
+<![CDATA[
+**User manual**
+.. image:: sRNAPipe_User_Manual.pdf
+@REFERENCES@
+]]>
+
+  </help>
 </tool>
