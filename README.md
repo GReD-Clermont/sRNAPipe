@@ -47,4 +47,7 @@ Galaxy recognizes installed tools by reading the tool_conf.xml tool configuratio
 
  4. Start or Restart Galaxy to use it.
  
- ![Alt]("sRNAPipe_User_Manual.pdf")
+ User Manual
+=============
+ 
+ ![User_manual]("https://github.com/brassetjensen/sRNAPipe/blob/master/sRNAPipe_User_Manual.pdf")
