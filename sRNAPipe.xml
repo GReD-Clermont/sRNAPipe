@@ -233,8 +233,4 @@
         </collection>
 
   </outputs>
-  <help>
-**User manual**
-"https://github.com/brassetjensen/sRNAPipe/blob/master/sRNAPipe_User_Manual.pdf"
-  </help>
 </tool>
