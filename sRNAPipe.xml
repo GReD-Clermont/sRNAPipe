@@ -80,11 +80,11 @@
     --PPPon $PPPon
   </command>
 
-  <requirements>
-    <requirement type="package" version="0.7.12">bwa</requirement>
-    <requirement type="package" version="2.24">bedtools</requirement>
-    <requirement type="package" version="1.2">samtools</requirement>
-  </requirements>
+  <requirements> 
+    <requirement type="package" version="0.7.15">bwa</requirement> 
+    <requirement type="package" version="2.26.0">bedtools</requirement> 
+    <requirement type="package" version="1.5">samtools</requirement> 
+  </requirements> 
 
   <inputs>
     <param format="fastqsanger" name="first_input" type="data" label="fastqsanger (Q33)" help=""/>
@@ -233,4 +233,8 @@
         </collection>
 
   </outputs>
+  <help>
+ 	**User manual**
+ 	"https://github.com/brassetjensen/sRNAPipe/blob/master/sRNAPipe_User_Manual.pdf"
+  </help>
 </tool>
