@@ -116,9 +116,9 @@ sub ppp_page
 					<h2>$id</h2>
 					<p> <img class=\"featurette-image\" src=\"$id/histogram.png\"/></p>
 					<p><a href=\"$id/overlap_size.txt\">ping pong signature</a></p>
-					<p><a href=\"$id/sensPPP.txt\">sens reads with PPP</a></p>
+					<p><a href=\"$id/sensPPP.txt\">sense reads with PPP</a></p>
 					<p><a href=\"$id/antisensPPP.txt\">reverse reads  with PPP</a></p>
-					<p><a href=\"$id/sens.txt\">sens reads without PPP</a></p>
+					<p><a href=\"$id/sens.txt\">sense reads without PPP</a></p>
 					<p><a href=\"$id/antisens.txt\">reverse reads without PPP</a></p>
 					</div>";
  				footer($sub);
@@ -839,9 +839,9 @@ sub PPPrint
     <h2>$k</h2>
     <p class=\"featurette-p\"> <img src=\"$v->[5]\"/></p>
     <p class=\"featurette-p\"><a href=\"$v->[4]\">ping pong signature</a></p>
-    <p class=\"featurette-p\"><a href=\"$v->[2]\">sens reads with PPP</a></p>
+    <p class=\"featurette-p\"><a href=\"$v->[2]\">sense reads with PPP</a></p>
     <p class=\"featurette-p\"><a href=\"$v->[3]\">reverse reads  with PPP</a></p>
-    <p class=\"featurette-p\"><a href=\"$v->[0]\">sens reads without PPP</a></p>
+    <p class=\"featurette-p\"><a href=\"$v->[0]\">sense reads without PPP</a></p>
     <p class=\"featurette-p\"><a href=\"$v->[1]\">reverse reads without PPP</a></p>
     </div>
     ";

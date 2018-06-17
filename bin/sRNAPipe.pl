@@ -206,7 +206,7 @@ foreach my $child ( 0 .. $#fastq )
 
 		my $ex_count_file =  $type_dir.$type_prefix.'transcripts_reads_counts.txt';
 		my ( $ex_count, $ex_ref_size ) =  sam_count ( $type_sam_transcripts );
-		rpms_rpkm( $ex_count, $ex_ref_size, $ma, $ex_count_file, $pi, $mi, $bo );
+		rpms_rpkm_te( $ex_count, $ex_ref_size, $ma, $ex_count_file, $pi, $mi, $bo );
 
 		my ( $TEs_count, $TEs_ref_size, $TEs_count_NoM, $TEs_count_M ) = sam_count_mis ( $type_sam_TEs );
 		my $TEs_count_file = $type_dir.$type_prefix.'TEs_reads_counts.txt';

@@ -357,8 +357,8 @@ sub rpms_rpkm_te
   print $out "\tper million of piRNAs" if ($piRNA_number != 0);
   print $out "\tper million of miRNAs" if ($miRNA_number != 0);
   print $out "\tper million of bonafide reads" if ($bonafide_number != 0);
-  print $out "\tsens reads counts\treverse reads counts";
-  print $out "\t% of sens 1U\t% of sens 10A\t% of reverse 1U\t% of reverse 10A\n";
+  print $out "\tsense reads counts\treverse reads counts";
+  print $out "\t% of sense 1U\t% of sense 10A\t% of reverse 1U\t% of reverse 10A\n";
   foreach my $k  ( sort keys %{$counthashR} )
   {
     my ($rpkm, $pirna, $mirna, $bonafide) = (0,0,0,0);
