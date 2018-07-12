@@ -85,7 +85,7 @@
     <requirement type="package" version="2.24">bedtools</requirement>
     <requirement type="package" version="1.2">samtools</requirement>
     <requirement type="package" version="3.2.1">R</requirement>
-    <requirement type="package" version="5.18">Perl</requirement>
+    <requirement type="package" version="5.18.1">perl</requirement>
   </requirements> 
 
   <inputs>
