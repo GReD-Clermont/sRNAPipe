@@ -522,6 +522,7 @@ sub footer
   <!-- Le javascript
   ================================================== -->
   <!-- Placed at the end of the document so the pages load faster -->
+  <script type=\"text/javascript\" src=\"js/filter.js\"></script>
   <script type=\"text/javascript\" src=\"js/jquery.js\"></script>
   <script type=\"text/javascript\" src=\"js/jquery-1.3.2.js\"></script>
   <script type=\"text/javascript\" src=\"js/jquery.galleriffic.js\"></script>
@@ -607,6 +608,7 @@ sub carousel
   <div id=\"caption0\" class=\"caption-container\">Reads randomly assigned</div>
   </div>
   <div id=\"thumbs0\" class=\"navigation\">
+  <input type=\"text\" id=\"myInput0\" onkeyup=\"search(this)\" placeholder=\"Search for names...\">
   <ul class=\"thumbs noscript\">
   ";
   foreach my $u (@{$non_unique})
@@ -644,6 +646,7 @@ sub carousel2
   <div id=\"caption0\" class=\"caption-container\">Uniquely mapped reads</div>
   </div>
   <div id=\"thumbs0\" class=\"navigation\">
+  <input type=\"text\" id=\"myInput0\" onkeyup=\"search(this)\" placeholder=\"Search for names...\">
   <ul class=\"thumbs noscript\">
   ";
 
@@ -673,6 +676,7 @@ sub carousel2
   <div id=\"caption1\" class=\"caption-container\">Reads randomly assigned</div>
   </div>
   <div id=\"thumbs1\" class=\"navigation\">
+  <input type=\"text\" id=\"myInput1\" onkeyup=\"search(this)\" placeholder=\"Search for names...\">
   <ul class=\"thumbs noscript\">
   ";
 
