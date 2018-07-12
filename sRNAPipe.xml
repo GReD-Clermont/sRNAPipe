@@ -81,9 +81,9 @@
   </command>
 
   <requirements> 
-    <requirement type="package" version="0.7.15">bwa</requirement> 
-    <requirement type="package" version="2.26.0">bedtools</requirement> 
-    <requirement type="package" version="1.5">samtools</requirement> 
+    <requirement type="package" version="0.7.12">bwa</requirement>
+    <requirement type="package" version="2.24">bedtools</requirement>
+    <requirement type="package" version="1.2">samtools</requirement>
   </requirements> 
 
   <inputs>
