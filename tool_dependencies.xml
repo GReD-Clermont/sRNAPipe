@@ -15,13 +15,29 @@
   <package name="perl" version="5.18.1">
     <repository changeset_revision="35f117d7396b" name="package_perl_5_18" owner="iuc" prior_installation_required="True" toolshed="https://toolshed.g2.bx.psu.edu" />
   </package>
-  <package>https://depot.galaxyproject.org/software/plotrix/plotrix_3.6_src_all.tar.gz</package>
-  <package>https://depot.galaxyproject.org/software/bioconductor-sushi/bioconductor-sushi_1.14.0_src_all.tar.gz</package>
-  <package>https://depot.galaxyproject.org/software/RColorBrewer/RColorBrewer_1.1-2_src_all.tar.gz</package>
-  <package>https://depot.galaxyproject.org/software/ggplot2/ggplot2_1.0.1_src_all.tar.gz</package>
-  <package>https://depot.galaxyproject.org/software/perl-statistics-r/perl-statistics-r_0.34_src_all.tar.gz</package>
-  <package>https://cpan.metacpan.org/authors/id/Y/YA/YANICK/Parallel-ForkManager-1.19.tar.gz</package>
-  <package>https://cpan.metacpan.org/authors/id/F/FA/FANGLY/Statistics-R-0.34.tar.gz</package>
-  <package>https://cpan.metacpan.org/authors/id/J/JV/JV/Getopt-Long-2.50.tar.gz</package>
-  <package>https://cpan.metacpan.org/authors/id/S/SH/SHLOMIF/String-Random-0.29.tar.gz</package>
+  <package name="srnapipe" version="1.0">
+    <install version="1.0">
+      <actions>
+        <action type="setup_perl_environment">
+          <repository changeset_revision="35f117d7396b" name="package_perl_5_18" owner="iuc">
+            <package name="perl" version="5.18.1" />
+          </repository>
+          <package>https://cpan.metacpan.org/authors/id/Y/YA/YANICK/Parallel-ForkManager-1.19.tar.gz</package>
+          <package>https://cpan.metacpan.org/authors/id/F/FA/FANGLY/Statistics-R-0.34.tar.gz</package>
+          <package>https://cpan.metacpan.org/authors/id/J/JV/JV/Getopt-Long-2.50.tar.gz</package>
+          <package>https://cpan.metacpan.org/authors/id/S/SH/SHLOMIF/String-Random-0.29.tar.gz</package>
+        </action>
+        <action type="setup_r_environment">
+          <repository changeset_revision="d9f7d84125b7" name="package_r_3_2_1" owner="iuc">
+            <package name="R" version="3.2.1" />
+          </repository>
+          <package>https://depot.galaxyproject.org/software/plotrix/plotrix_3.6_src_all.tar.gz</package>
+          <package>https://depot.galaxyproject.org/software/bioconductor-sushi/bioconductor-sushi_1.14.0_src_all.tar.gz</package>
+          <package>https://depot.galaxyproject.org/software/RColorBrewer/RColorBrewer_1.1-2_src_all.tar.gz</package>
+          <package>https://depot.galaxyproject.org/software/ggplot2/ggplot2_1.0.1_src_all.tar.gz</package>
+          <package>https://depot.galaxyproject.org/software/perl-statistics-r/perl-statistics-r_0.34_src_all.tar.gz</package>
+        </action>
+      </actions>
+    </install>
+  </package>
 </tool_dependency>
