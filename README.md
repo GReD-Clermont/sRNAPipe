@@ -20,7 +20,7 @@ Prerequisites
 	* BedTools powerful toolset for genome arithmetic is also needed. It should be found here: http://bedtools.readthedocs.io/en/latest/ . We recommend to use v2.24.0 or higher.
 	* Samtools : you can obtain it here :  https://sourceforge.net/projects/samtools/files/samtools/1.2/. Please download version 1.2
 
-3. Perl version higher than 5.1 is needed with packages : "perl-statistics", "Parallel::ForkManager", "Statistics::R", "Getopt::Long" , "String::Random" installed.
+3. Perl version higher than 5.1 is needed with packages : "perl-statistics", "Parallel::ForkManager", "Statistics::R", "Getopt::Long" , "String::Random", "File::Copy::Recursive" and "Math::CDF" installed.
 
 4. R project version higher than 3.1 is needed with libraries "plotrix", "bioconductor-sushi", "RColorBrewer" and "ggplot2"  installed. You can find respectively these libraries here: https://cran.r-project.org/web/packages/plotrix/index.html and https://bioconductor.org/packages/release/bioc/html/Sushi.html and https://cran.r-project.org/web/packages/RColorBrewer/index.html and https://cran.r-project.org/web/packages/ggplot2/index.html
 
