@@ -18,7 +18,7 @@ Prerequisites
 
 	* Bwa aligner: you can obtain it here: https://sourceforge.net/projects/bio-bwa/files/ . Please download version  0.7.12-r1039 or higher
 	* BedTools powerful toolset for genome arithmetic is also needed. It should be found here: http://bedtools.readthedocs.io/en/latest/ . We recommend to use v2.24.0 or higher.
-	* Samtools : you can obtain it here :  https://sourceforge.net/projects/samtools/files/samtools/1.2/. Please download version 1.2
+	* Samtools : you can obtain it here :  https://sourceforge.net/projects/samtools/files/samtools/1.5/. Please download version 1.5
 
 3. Perl version higher than 5.1 is needed with packages : "perl-statistics", "Parallel::ForkManager", "Statistics::R", "Getopt::Long" , "String::Random", "File::Copy::Recursive" and "Math::CDF" installed.
 
