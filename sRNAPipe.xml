@@ -1,39 +1,38 @@
 <tool id="sRNAPipe" name="sRNAPipe" version="1.0">
   <description>In-depth study of small RNA</description>
-  <command interpreter="perl">
+  <command><![CDATA[
+    perl '$__tool_directory__/bin/sRNAPipe.pl'
 
-    ./bin/sRNAPipe.pl
-
-    --fastq ${first_input}
-    --fastq_n ${first_input.name}
+    --fastq '${first_input}'
+    --fastq_n '${first_input.name}'
     #for $input_file in $input_files:
-    --fastq ${input_file.additional_input}
-    --fastq_n ${input_file.additional_input.name}
+    --fastq '${input_file.additional_input}'
+    --fastq_n '${input_file.additional_input.name}'
     #end for
 
     #if $Genome.refGenomeSource == "history":
-    --ref "${Genome.ownFile}"
+    --ref '${Genome.ownFile}'
     --build_index
     #else:
-    --ref "${Genome.indices.fields.path}"
+    --ref '${Genome.indices.fields.path}'
     #end if
 
     #if $tRNAs.refGenomeSource == "history":
-    --tRNAs "${tRNAs.ownFile}"
+    --tRNAs '${tRNAs.ownFile}'
     --build_tRNAs
     #elif $tRNAs.refGenomeSource == "none":
     --tRNAs "None"
     #else:
-    --tRNAs "${tRNAs.indices.fields.path}"
+    --tRNAs '${tRNAs.indices.fields.path}'
     #end if
 
     #if $snRNAs.refGenomeSource == "history":
-    --snRNAs "${snRNAs.ownFile}"
+    --snRNAs '${snRNAs.ownFile}'
     --build_snRNAs
     #elif $snRNAs.refGenomeSource == "none":
     --snRNAs "None"
     #else:
-    --snRNAs "${snRNAs.indices.fields.path}"
+    --snRNAs '${snRNAs.indices.fields.path}'
     #end if
 
     #if $rRNAs.refGenomeSource == "history":
@@ -42,28 +41,28 @@
     #elif $rRNAs.refGenomeSource == "none":
     --rRNAs "None"
     #else:
-    --rRNAs "${rRNAs.indices.fields.path}"
+    --rRNAs '${rRNAs.indices.fields.path}'
     #end if
 
     #if $miRNAs.refGenomeSource == "history":
-    --miRNAs "${miRNAs.ownFile}"
+    --miRNAs '${miRNAs.ownFile}'
     --build_miRNAs
     #else:
-    --miRNAs "${miRNAs.indices.fields.path}"
+    --miRNAs '${miRNAs.indices.fields.path}'
     #end if
 
     #if $transcripts.refGenomeSource == "history":
-    --transcripts "${transcripts.ownFile}"
+    --transcripts '${transcripts.ownFile}'
     --build_transcripts
     #else:
-    --transcripts "${transcripts.indices.fields.path}"
+    --transcripts '${transcripts.indices.fields.path}'
     #end if
 
     #if $TE.refGenomeSource == "history":
-    --TE "${TE.ownFile}"
+    --TE '${TE.ownFile}'
     --build_TE
     #else:
-    --TE "${TE.indices.fields.path}"
+    --TE '${TE.indices.fields.path}'
     #end if
 
     --si_min $si_min
@@ -78,6 +77,7 @@
     --dir $html_out.files_path
     --html $html_out
     --PPPon $PPPon
+    ]]>
   </command>
 
   <requirements> 

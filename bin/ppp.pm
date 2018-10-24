@@ -166,7 +166,7 @@ sub count_mapped
   }
   close $f;
 
-  open my $infile, "samtools view  $in_file |"|| die "cannot open input file $! \n";
+  open my $infile, "samtools view '$in_file' |"|| die "cannot open input file $! \n";
   while(<$infile>)
   {
     unless ($_ =~ /^\@[A-Za-z][A-Za-z](\t[A-Za-z][A-Za-z0-9]:[ -~]+)+$/ || $_ =~ /^\@CO\t.*/ )

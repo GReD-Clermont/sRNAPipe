@@ -10,25 +10,25 @@ our @EXPORT_OK = qw( &main_page &details_pages &menu_page &ppp_page );
 
 sub main_page
 {
-	my ( $dir, $file, $list_mainTabP, $current, $ma, $ma_uni, $dir_root ) = @_;
-	my ( $futHashP, $uniqueTabP, $randTabP, $pngTabP ) = get_genome ( $dir, $dir_root );
+  my ( $dir, $file, $list_mainTabP, $current, $ma, $ma_uni, $dir_root ) = @_;
+  my ( $futHashP, $uniqueTabP, $randTabP, $pngTabP ) = get_genome ( $dir, $dir_root );
 
-	open my $h, '>', $file || die "cannot create $file $!\n";
-	header ( $h );
-	navbar ( $h, $list_mainTabP, $current );
-	print $h "<div class=\"container\"><p><a class=\"btn\" href=\"$current-sub.html\">View details &raquo;</a></p></div>\n";
-	futurette( $h, $current, $pngTabP, $futHashP );
-	print  $h "<div class=\"container\"><h2>mappers #: $ma</h2><h2>unique mappers #: $ma_uni</h2> </div>\n";
-	carousel2( $h, $uniqueTabP, $randTabP, $dir_root );
-	footer($h);
-	close $h;
+  open my $h, '>', $file || die "cannot create $file $!\n";
+  header ( $h );
+  navbar ( $h, $list_mainTabP, $current );
+  print $h "<div class=\"container\"><p><a class=\"btn\" href=\"$current-sub.html\">View details &raquo;</a></p></div>\n";
+  futurette( $h, $current, $pngTabP, $futHashP );
+  print  $h "<div class=\"container\"><h2>mappers #: $ma</h2><h2>unique mappers #: $ma_uni</h2> </div>\n";
+  carousel2( $h, $uniqueTabP, $randTabP, $dir_root );
+  footer($h);
+  close $h;
 }
 
 sub menu_page
 {
-	my ( $dir, $file, $list_mainTabP, $current, $min, $max, $simin, $simax, $pimin, $pimax, $dir_root ) = @_;
+  my ( $dir, $file, $list_mainTabP, $current, $min, $max, $simin, $simax, $pimin, $pimax, $dir_root ) = @_;
   my $html_ref = $1 if $dir =~ /$dir_root(.*)/;
-	open my $h, '>', $file || die "cannot create $file $!\n";
+  open my $h, '>', $file || die "cannot create $file $!\n";
   header($h);
   navbar ( $h, $list_mainTabP, $current );
   span( $h, $current, $min, $max, $simin, $simax, $pimin, $pimax );
@@ -40,7 +40,7 @@ sub menu_page
 
 sub details_pages
 {
-	my ( $dir_details, $prefix, $list_mainTabP, $current, $misTE, $dir_root, $ppp ) = @_;
+  my ( $dir_details, $prefix, $list_mainTabP, $current, $misTE, $dir_root, $ppp ) = @_;
   my ($Hex, $HTE, $HG, $NonUniTE, $NonUniG, $UniG ) = get_subgroups( $dir_details, $current, $misTE, $dir_root );
 
   my $html_ref = $1.'-PPP.html' if $prefix =~ /$dir_root(.*)/;
@@ -49,9 +49,9 @@ sub details_pages
   navbar ( $h, $list_mainTabP, $current );
   if ( $prefix =~ /piRNAs$/ && $ppp eq 'true' )
   {
-  	print $h " <div class=\"container\">";
-  	print $h " <p><a class=\"btn\" href=\"$html_ref\">Ping Pong Partners</a></p>\n";
-  	print $h "</div>";
+    print $h " <div class=\"container\">";
+    print $h " <p><a class=\"btn\" href=\"$html_ref\">Ping Pong Partners</a></p>\n";
+    print $h "</div>";
   }
   fut($h,'Transposable elements',$HTE);
   carousel($h,$NonUniTE,$dir_root);
@@ -76,14 +76,14 @@ sub details_pages
 
 sub ppp_page
 {
-	my ( $dir, $file, $list_mainTabP, $current, $ppp, $dir_root ) = @_;
+  my ( $dir, $file, $list_mainTabP, $current, $ppp, $dir_root ) = @_;
 
-	my $ppp_file = $ppp.'ppp.txt';
-	open my $h, '>', $file || die "cannot create $file $!\n";
-	header($h);
- 	navbar ( $h, $list_mainTabP, $current );
- 	print $h '<div class="container"> <table class="wb-tables table table-striped table-hover">'."\n";
- 	print $h '<thead>
+  my $ppp_file = $ppp.'ppp.txt';
+  open my $h, '>', $file || die "cannot create $file $!\n";
+  header($h);
+  navbar ( $h, $list_mainTabP, $current );
+  print $h '<div class="container"> <table class="wb-tables table table-striped table-hover">'."\n";
+  print $h '<thead>
   <tr>
     <th data-sortable="true">ID</th>
     <th data-sortable="true">overlap sum</th>
@@ -96,22 +96,22 @@ sub ppp_page
   </thead>
   <tbody>';
 
- 	open my $f, '<', $ppp_file || die "cannot open $ppp_file  $!\n";
- 	while ( <$f> )
- 	{
- 		chomp;
- 		print $h '<tr>';
- 		my ( $id, $sum, $ten, $mean, $sd, $zscore, $prob) = split /\t/, $_;
- 		if( -d "$ppp/$id" ) 
- 		{
- 			my $sub_html = $ppp.$id.'.html';
+  open my $f, '<', $ppp_file || die "cannot open $ppp_file  $!\n";
+  while ( <$f> )
+  {
+    chomp;
+    print $h '<tr>';
+    my ( $id, $sum, $ten, $mean, $sd, $zscore, $prob) = split /\t/, $_;
+    if( -d "$ppp/$id" )
+    {
+      my $sub_html = $ppp.$id.'.html';
       my $sub_html_ref = $1.$id if $ppp =~ /$dir_root(.*)/;
- 			print $h "<td> <a href=\"$sub_html_ref.html\">$id</a> </td>";
+      print $h "<td> <a href=\"$sub_html_ref.html\">$id</a> </td>";
 
- 			open my $sub, '>', $sub_html || die "cannot create $sub_html\n";
- 			{
- 				header($sub);
- 				print $sub "
+      open my $sub, '>', $sub_html || die "cannot create $sub_html\n";
+      {
+        header($sub);
+        print $sub "
 					<div align=\"center\">
 					<h2>$id</h2>
 					<p> <img class=\"featurette-image\" src=\"$id/histogram.png\"/></p>
@@ -121,20 +121,19 @@ sub ppp_page
 					<p><a href=\"$id/sens.txt\">sense reads without PPP</a></p>
 					<p><a href=\"$id/antisens.txt\">reverse reads without PPP</a></p>
 					</div>";
- 				footer($sub);
- 			}
- 			close $sub;
+        footer($sub);
+      }
+      close $sub;
+    }
+    else { print $h "<td> $id </td>\n"; }
+    print $h "<td> $sum </td><td> $ten </td><td> $mean </td><td> $sd </td><td> $zscore </td><td> $prob </td>\n";
 
- 		}
- 		else { print $h "<td> $id </td>\n"; }
- 		print $h "<td> $sum </td><td> $ten </td><td> $mean </td><td> $sd </td><td> $zscore </td><td> $prob </td>\n";
-
- 		print $h '</tr>';
- 	}
- 	close $f;
- 	print $h "</tbody></table></div>";
- 	footer($h);
- 	close $h;
+    print $h '</tr>';
+  }
+  close $f;
+  print $h "</tbody></table></div>";
+  footer($h);
+  close $h;
 }
 
 sub get_genome
@@ -142,37 +141,37 @@ sub get_genome
   my ( $dir, $dir_root ) = @_;
   my ( %hash, @group,  @Unique, @NonUnique, @png );
 
-  my $fut = $dir.'/*';
+  my $fut = "'$dir'".'/*';
   my @fut = glob $fut;
 
 
-	foreach my $fr ( @fut )
-	{
+  foreach my $fr ( @fut )
+  {
     my $f = $1 if $fr =~ /$dir_root(.*)/;
-		if ( $fr =~ /.*Gviz/ )
-		{
-			my $nu = $fr.'/rand/*';
-			@NonUnique =  glob $nu;
-			my $u = $fr.'/unique/*';
-			@Unique =  glob $u;
-		}
-		elsif ( $f =~ /.*distribution\.txt$/ ) { $hash{'mappers size distribution (txt)'} = $f; }
-		elsif ( $f =~ /.*distribution\.png$/ ) { push @png, $f; } 
-		elsif ( $f =~ /.*unique\.fastq$/ ) { $hash{'unique mappers (fastq.gz)'} = $f.'.gz'; `gzip $fr`; }
-		elsif ( $f =~ /.*rejected\.fastq$/ ) { $hash{'unmapped (fastq.gz)'} = $f.'.gz'; `gzip $fr`; }
-		elsif ( $f =~ /.*all\.fastq$/ ) { $hash{'mappers (fastq.gz)'} = $f.'.gz'; `gzip $fr`; }
-		elsif ( $f =~ /.*dup_unique\.txt$/ ) { $hash{'unique mappers (txt)'} = $f; }
-		elsif ( $f =~ /.*dup_mapnum\.txt$/ ) { $hash{'mappers (txt)'} = $f; }
-		elsif ( $f =~ /.*dup_nonmapp\.txt$/ ) { $hash{'unmapped (txt)'} = $f; }
-		elsif ( $f =~ /.*_unique_sorted\.bam$/ ) { $hash{'unique alignment (bam)'} = $f; }
-		elsif ( $f =~ /.*_sorted\.bam$/ ) { $hash{'alignment (bam)'} = $f; }
-		elsif ( $f =~ /.*unique_plus.bedgraph/) { $hash{'bedgraph unique plus strand'} = $f; }
+    if ( $fr =~ /.*Gviz/ )
+    {
+      my $nu = "'$fr'".'/rand/*';
+      @NonUnique =  glob $nu;
+      my $u = "'$fr'".'/unique/*';
+      @Unique =  glob $u;
+    }
+    elsif ( $f =~ /.*distribution\.txt$/ ) { $hash{'mappers size distribution (txt)'} = $f; }
+    elsif ( $f =~ /.*distribution\.png$/ ) { push @png, $f; }
+    elsif ( $f =~ /.*unique\.fastq$/ ) { $hash{'unique mappers (fastq.gz)'} = $f.'.gz'; `gzip '$fr'`; }
+    elsif ( $f =~ /.*rejected\.fastq$/ ) { $hash{'unmapped (fastq.gz)'} = $f.'.gz'; `gzip '$fr'`; }
+    elsif ( $f =~ /.*all\.fastq$/ ) { $hash{'mappers (fastq.gz)'} = $f.'.gz'; `gzip '$fr'`; }
+    elsif ( $f =~ /.*dup_unique\.txt$/ ) { $hash{'unique mappers (txt)'} = $f; }
+    elsif ( $f =~ /.*dup_mapnum\.txt$/ ) { $hash{'mappers (txt)'} = $f; }
+    elsif ( $f =~ /.*dup_nonmapp\.txt$/ ) { $hash{'unmapped (txt)'} = $f; }
+    elsif ( $f =~ /.*_unique_sorted\.bam$/ ) { $hash{'unique alignment (bam)'} = $f; }
+    elsif ( $f =~ /.*_sorted\.bam$/ ) { $hash{'alignment (bam)'} = $f; }
+    elsif ( $f =~ /.*unique_plus.bedgraph/) { $hash{'bedgraph unique plus strand'} = $f; }
     elsif ( $f =~ /.*unique_minus.bedgraph/) { $hash{'bedgraph unique minus strand'} = $f; }
     elsif ( $f =~ /.*plus.bedgraph/) { $hash{'bedgraph plus strand'} = $f; }
     elsif ( $f =~ /.*minus.bedgraph/) { $hash{'bedgraph minus strand'} = $f; }
     else { unlink $fr; }
-	}
-	return (\%hash, \@Unique, \@NonUnique, \@png);
+  }
+  return (\%hash, \@Unique, \@NonUnique, \@png);
 }
 
 sub span
@@ -221,11 +220,11 @@ sub get_subgroups
   my ( $dir, $name, $misTE, $dir_root ) = @_;
   my (%Hex, %HTE, %HG, @group, @png, @pngTE,  @NonUniTE, @UniG, @NonUniG );
 
-  my $fut = $dir.'/*';
+  my $fut = "'$dir'".'/*';
   my @fut = glob $fut;
   my $f ='';
-	foreach my $fr ( @fut )
-	{
+  foreach my $fr ( @fut )
+  {
     $f = $1 if $fr =~  /$dir_root(.*)/;
 
     if ( $f =~ /genome_unique_sorted\.bam$/ ) { $HG{'genome unique mappers (sorted bam)'} =  $f; }
@@ -238,25 +237,25 @@ sub get_subgroups
     elsif ( $f =~ /TEs_plus\.bedgraph$/) { $HTE{'bedgraph plus strand'} = $f; }
     elsif ( $f =~ /TEs_minus\.bedgraph$/) { $HTE{'bedgraph minus strand'} = $f; }
     elsif ( $f =~ /transcripts_sorted\.bam$/) { $Hex{'transcripts mappers (sorted bam)'} = $f;}
-    elsif ( $f =~ /transcripts_unique_sorted\.bam$/) { $Hex{'transcripts unique mappers (sorted bam)'} = $f;}        
+    elsif ( $f =~ /transcripts_unique_sorted\.bam$/) { $Hex{'transcripts unique mappers (sorted bam)'} = $f;}
     elsif ( $f =~ /transcripts_reads_counts\.txt$/) { $Hex{'read number per transcript (txt)'} = $f;}
     elsif ( $f =~ /TEs_reads_counts\.txt$/) { $HTE{"read number per TE 0 to $misTE mismatches (txt)"} = $f; }
     elsif ( $f =~ /TEs_reads_counts_mismatches\.txt$/) { $HTE{"read number per TE with 1 to $misTE mismatches (txt)"} = $f; }
     elsif ( $f =~ /TEs_reads_counts_nomismatches\.txt$/) { $HTE{'read number per TE with no mismatch (txt)'} = $f; }
     elsif ( $f =~ /TEs_unique_sorted\.bam$/) { $HTE{'TEs unique mappers (sorted bam)'} = $f; }
     elsif ( $f =~ /TEs_sorted\.bam$/) { $HTE{'TEs mappers (sorted bam)'} = $f; }
-		elsif ( $fr =~ /.*Gviz_TEs/ )
-		{
-			my $nu = $fr.'/*';
-			@NonUniTE =  glob $nu;
-		}
-		elsif ( $fr =~ /.*Gviz_genome/ )
-		{
-			my $nu = $fr.'/rand/*';
-			@NonUniG =  glob $nu;
-			my $u = $fr.'/unique/*';
-			@UniG =  glob $u;
-		}
+    elsif ( $fr =~ /.*Gviz_TEs/ )
+    {
+      my $nu = "'$fr'".'/*';
+      @NonUniTE =  glob $nu;
+    }
+    elsif ( $fr =~ /.*Gviz_genome/ )
+    {
+      my $nu = "'$fr'".'/rand/*';
+      @NonUniG =  glob $nu;
+      my $u = "'$fr'".'/unique/*';
+      @UniG =  glob $u;
+    }
     else { unlink $fr; }
   }
   return (\%Hex, \%HTE, \%HG, \@NonUniTE,  \@NonUniG, \@UniG);
@@ -480,7 +479,7 @@ sub header
 sub navbar
 {
   my ( $file, $fastq, $actif ) = @_;
-  
+
   print $file "
   <div class=\"navbar navbar-inverse navbar-fixed-top\">
   <div class=\"navbar-inner\">
@@ -526,7 +525,7 @@ sub footer
   <script type=\"text/javascript\" src=\"js/jquery.js\"></script>
   <script type=\"text/javascript\" src=\"js/jquery-1.3.2.js\"></script>
   <script type=\"text/javascript\" src=\"js/jquery.galleriffic.js\"></script>
-  <script type=\"text/javascript\" src=\"js/jquery.opacityrollover.js\"></script>  
+  <script type=\"text/javascript\" src=\"js/jquery.opacityrollover.js\"></script>
   <script type=\"text/javascript\" src=\"js/bootstrap-table.js\"></script>
   <script type=\"text/javascript\" src=\"js/bootstrap.min.js\"></script>
   <script type=\"text/javascript\">
@@ -613,7 +612,7 @@ sub carousel
   ";
   foreach my $u (@{$non_unique})
   {
-  	my $name = basename($u,'.png');
+    my $name = basename($u,'.png');
     $u = $1 if $u =~ /$dir_root(.*)/;
     print $file "
     <li>
@@ -652,7 +651,7 @@ sub carousel2
 
   foreach my $u (@{$unique})
   {
-  	my $name = basename($u,'.png');
+    my $name = basename($u,'.png');
     $u = $1 if $u =~ /$dir_root(.*)/;
     print $file "
     <li>
@@ -682,7 +681,7 @@ sub carousel2
 
   foreach my $nu (@{$non_unique})
   {
-  	my $name = basename($nu,'.png');
+    my $name = basename($nu,'.png');
     $nu = $1 if $nu =~ /$dir_root(.*)/;
     print $file "
         <li>
@@ -750,7 +749,7 @@ sub get_distri_exon
 {
   my ($dir, $name) = @_;
   my (@out,@group);
-  my $group = $dir.'/'.$name.'-subgroups-bonafide_reads-transcripts-*distribution-*.png';
+  my $group = "'$dir'".'/'."'$name'".'-subgroups-bonafide_reads-transcripts-*distribution-*.png';
   @group = glob $group;
   foreach (my $g =0; $g <= $#group; $g++)
   {
@@ -767,7 +766,7 @@ sub get_distri_TE
 {
   my ($dir, $name) = @_;
   my (@out,@group);
-  my $group = $dir.'/'.$name.'-subgroups-bonafide_reads-TE-*distribution-*.png';
+  my $group = "'$dir'".'/'."'$name'".'-subgroups-bonafide_reads-TE-*distribution-*.png';
   @group = glob $group;
   foreach (my $g =0; $g <= $#group; $g++)
   {
@@ -784,9 +783,9 @@ sub get_PPP
 {
   my ($dir,$name) = @_;
   my (%distri,@group);
-  my $group = $dir.'/'.$name.'-subgroups-bonafide_reads-TE-PPPartners-*';
+  my $group = "'$dir'".'/'."'$name'".'-subgroups-bonafide_reads-TE-PPPartners-*';
   @group = glob $group;
-  
+
   foreach (my $g =0; $g <= $#group; $g++)
   {
     if ($group[$g] =~ /.*($name-subgroups-bonafide_reads-TE-PPPartners-.*)/ )
@@ -831,7 +830,7 @@ sub PPPrint
 {
   my ($h, $hash) = @_;
   my $cmp = 0;
-  
+
   print $h "<div class=\"container\">\n";
   print $h "<div class=\"row text-center\">";
   while ( my ($k,$v) = each %{$hash} )
@@ -851,7 +850,7 @@ sub PPPrint
     ";
     $cmp++;
   }
-  
+
   print $h "</div></div>";
 }
 
@@ -880,7 +879,7 @@ sub printDistri
     ";
     $cmp++;
   }
-  
+
   print $h "</div></div>";
 }
 

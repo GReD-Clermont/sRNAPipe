@@ -34,7 +34,7 @@ sub build_index
 	my $to_index = shift;
 	my $log = shift;
 	my $index_log = $to_index.'_index.err';
-	`bwa index $to_index 2> $index_log`;
+	`bwa index '$to_index' 2> '$index_log'`;
 	print $log "Creating index for $to_index\n";
 }
 
@@ -412,9 +412,9 @@ sub sam_to_bam_bg
 		$view_err = $1.'_view.err';
 		$sort_err = $1.'_sort.err';
 	}	
-	`samtools view -Shb   --threads $number_of_cpus $sam 2> $view_err | samtools sort  -O BAM --threads $number_of_cpus  /dev/stdin 2> $sort_err  > $bam_sorted`;
-	`bedtools genomecov -scale $scale -strand + -bga -ibam $bam_sorted > $bedgraphP`;	
-	`bedtools genomecov -scale $scale -strand - -bga -ibam $bam_sorted > $bedgraphM`;
+	`samtools view -Shb   --threads $number_of_cpus '$sam' 2> '$view_err' | samtools sort  -O BAM --threads $number_of_cpus  /dev/stdin 2> '$sort_err'  > '$bam_sorted'`;
+	`bedtools genomecov -scale $scale -strand + -bga -ibam '$bam_sorted' > '$bedgraphP'`;
+	`bedtools genomecov -scale $scale -strand - -bga -ibam '$bam_sorted' > '$bedgraphM'`;
 }
 
 sub sam_sorted_bam
@@ -428,7 +428,7 @@ sub sam_sorted_bam
 		$sort_err = $1.'_sort.err';
 
 	}
-	`samtools view -Shb   --threads $number_of_cpus $sam 2> $view_err | samtools sort  -O BAM --threads $number_of_cpus  /dev/stdin  2> $sort_err  > $bam_sorted`;
+	`samtools view -Shb   --threads $number_of_cpus '$sam' 2> '$view_err' | samtools sort  -O BAM --threads $number_of_cpus  /dev/stdin  2> '$sort_err'  > '$bam_sorted'`;
 }
 
 sub BWA_call
@@ -436,8 +436,8 @@ sub BWA_call
 	my ( $index, $fastq, $sam, $mismatches, $number_of_cpus, $report ) = @_;
 	my ( $aln_err, $samse_err, $seq_num ) = ( $sam.'_aln.err', $sam.'_samse.err', 0 );
 	print $report "-----------------------------\n";
-	print $report "bwa aln -t $number_of_cpus -n $mismatches $index $fastq 2> $aln_err | bwa samse $index /dev/stdin $fastq 2> $samse_err > $sam\n";
-	`bwa aln -t $number_of_cpus -n $mismatches $index $fastq 2> $aln_err | bwa samse $index /dev/stdin $fastq 2> $samse_err > $sam `;
+	print $report "bwa aln -t $number_of_cpus -n $mismatches '$index' '$fastq' 2> '$aln_err' | bwa samse $index /dev/stdin '$fastq' 2> '$samse_err' > '$sam'\n";
+	`bwa aln -t $number_of_cpus -n $mismatches '$index' '$fastq' 2> '$aln_err' | bwa samse $index /dev/stdin '$fastq' 2> '$samse_err' > '$sam' `;
 }
 
 sub rpms_rpkm

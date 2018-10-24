@@ -255,14 +255,14 @@ foreach my $child ( 0 .. $#fastq )
 	#HTML Main Webpage
 	my $index_page = $dir.$fastq_n[$child].'.html';
 	main_page ( $gen_dir, $index_page, \@fastq_n, $fastq_n[$child], $ma, $ma_uni, $dir );
-  copy ($index_page, $html_out) if $child == 0;
+	copy ($index_page, $html_out) if $child == 0;
 	#HTML Menu
 	my $menu_page = $dir.$fastq_n[$child].'-sub.html';
 	menu_page ( $group_dir, $menu_page, \@fastq_n, $fastq_n[$child], $min, $max, $si_min, $si_max, $pi_min, $pi_max, $dir );
-	unlink glob "$group_dir*.sam"; unlink glob "$group_dir*.fastq";
+	unlink glob "'$group_dir'*.sam"; unlink glob "'$group_dir'*.fastq";
 	$pm->finish(); # pass an exit code to finish
 }
 $pm->wait_all_children;
-unlink glob $dir."dataset_*symlink.fa*"; 
+unlink glob "'$dir'"."dataset_*symlink.fa*";
 print $report "Job done!\n";
 close $report;
