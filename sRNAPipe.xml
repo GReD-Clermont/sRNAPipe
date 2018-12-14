@@ -1,5 +1,22 @@
 <tool id="sRNAPipe" name="sRNAPipe" version="1.0">
   <description>In-depth study of small RNA</description>
+  <requirements>
+    <requirement type="package" version="0.7.12">bwa</requirement>
+    <requirement type="package" version="2.24">bedtools</requirement>
+    <requirement type="package" version="1.5">samtools</requirement>
+    <requirement type="package" version="3.3.2">r-base</requirement>
+    <requirement type="package" version="5.22.0">perl</requirement>
+    <requirement type="package" version="2.50">perl-getopt-long</requirement>
+    <requirement type="package" version="1.17">perl-parallel-forkmanager</requirement>
+    <requirement type="package" version="0.34" >perl-statistics-r</requirement>
+    <requirement type="package" version="0.30">perl-string-random</requirement>
+    <requirement type="package" version="0.38" >perl-file-copy-recursive</requirement>
+    <requirement type="package" version="0.1" >perl-math-cdf</requirement>
+    <requirement type="package" version="3.6">r-plotrix</requirement>
+    <requirement type="package" version="1.14.0">bioconductor-sushi</requirement>
+    <requirement type="package" version="1.1_2">r-rcolorbrewer</requirement>
+    <requirement type="package" version="2.2.1">r-ggplot2</requirement>
+  </requirements>
   <command><![CDATA[
     perl '$__tool_directory__/bin/sRNAPipe.pl'
 
@@ -10,56 +27,56 @@
     --fastq_n '${input_file.additional_input.name}'
     #end for
 
-    #if $Genome.refGenomeSource == "history":
-    --ref '${Genome.ownFile}'
+    #if $Genome.GenomeSource == "history":
+    --ref '${Genome.GenomeFile}'
     --build_index
     #else:
     --ref '${Genome.indices.fields.path}'
     #end if
 
-    #if $tRNAs.refGenomeSource == "history":
-    --tRNAs '${tRNAs.ownFile}'
+    #if $tRNAs.tRNASource == "history":
+    --tRNAs '${tRNAs.tRNAFile}'
     --build_tRNAs
-    #elif $tRNAs.refGenomeSource == "none":
+    #elif $tRNAs.tRNASource == "none":
     --tRNAs "None"
     #else:
     --tRNAs '${tRNAs.indices.fields.path}'
     #end if
 
-    #if $snRNAs.refGenomeSource == "history":
-    --snRNAs '${snRNAs.ownFile}'
+    #if $snRNAs.snRNASource == "history":
+    --snRNAs '${snRNAs.snRNAFile}'
     --build_snRNAs
-    #elif $snRNAs.refGenomeSource == "none":
+    #elif $snRNAs.snRNASource == "none":
     --snRNAs "None"
     #else:
     --snRNAs '${snRNAs.indices.fields.path}'
     #end if
 
-    #if $rRNAs.refGenomeSource == "history":
-    --rRNAs "${rRNAs.ownFile}"
+    #if $rRNAs.rRNASource == "history":
+    --rRNAs "${rRNAs.rRNAFile}"
     --build_rRNAs
-    #elif $rRNAs.refGenomeSource == "none":
+    #elif $rRNAs.rRNASource == "none":
     --rRNAs "None"
     #else:
     --rRNAs '${rRNAs.indices.fields.path}'
     #end if
 
-    #if $miRNAs.refGenomeSource == "history":
-    --miRNAs '${miRNAs.ownFile}'
+    #if $miRNAs.miRNASource == "history":
+    --miRNAs '${miRNAs.miRNAFile}'
     --build_miRNAs
     #else:
     --miRNAs '${miRNAs.indices.fields.path}'
     #end if
 
-    #if $transcripts.refGenomeSource == "history":
-    --transcripts '${transcripts.ownFile}'
+    #if $transcripts.TranscriptsSource == "history":
+    --transcripts '${transcripts.TranscriptsFile}'
     --build_transcripts
     #else:
     --transcripts '${transcripts.indices.fields.path}'
     #end if
 
-    #if $TE.refGenomeSource == "history":
-    --TE '${TE.ownFile}'
+    #if $TE.TESource == "history":
+    --TE '${TE.TEFile}'
     --build_TE
     #else:
     --TE '${TE.indices.fields.path}'
@@ -80,31 +97,13 @@
     ]]>
   </command>
 
-  <requirements> 
-    <requirement type="package" version="0.7.12">bwa</requirement>
-    <requirement type="package" version="2.24">bedtools</requirement>
-    <requirement type="package" version="1.5">samtools</requirement>
-    <requirement type="package" version="3.3.2">r-base</requirement>
-    <requirement type="package" version="5.22.0">perl</requirement>
-    <requirement type="package" version="2.50">perl-getopt-long</requirement>
-    <requirement type="package" version="1.17">perl-parallel-forkmanager</requirement>
-    <requirement type="package" version="0.34" >perl-statistics-r</requirement>
-    <requirement type="package" version="0.30">perl-string-random</requirement>
-    <requirement type="package" version="0.38" >perl-file-copy-recursive</requirement>
-    <requirement type="package" version="0.1" >perl-math-cdf</requirement>
-    <requirement type="package" version="3.6">r-plotrix</requirement>
-    <requirement type="package" version="1.14.0">bioconductor-sushi</requirement>
-    <requirement type="package" version="1.1_2">r-rcolorbrewer</requirement>
-    <requirement type="package" version="2.2.1">r-ggplot2</requirement>
-  </requirements> 
-
   <inputs>
     <param format="fastqsanger" name="first_input" type="data" label="fastqsanger (Q33)" help=""/>
     <repeat name="input_files" title="Additional Fastq Files">
       <param format="fastqsanger" name="additional_input" type="data" label="fastqsanger (Q33)" help=""/>
     </repeat>
     <conditional name="Genome">
-      <param name="refGenomeSource" type="select" label="Will you select a reference genome from your history or use a built-in index?">
+      <param name="GenomeSource" type="select" label="Will you select a reference genome from your history or use a built-in index?">
         <option value="indexed">Use a built-in index</option>
         <option value="history">Use one from the history</option>
       </param>
@@ -117,11 +116,11 @@
         </param>
       </when>
       <when value="history">
-        <param name="ownFile" type="data" format="fasta" metadata_name="dbkey" label="Select a reference from history" />
+        <param name="GenomeFile" type="data" format="fasta" label="Select a reference from history" />
       </when>
     </conditional>
     <conditional name="transcripts">
-      <param name="refGenomeSource" type="select" label="Will you select transcripts database from your history or use a built-in index?">
+      <param name="TranscriptsSource" type="select" label="Will you select transcripts database from your history or use a built-in index?">
         <option value="indexed">Use a built-in index</option>
         <option value="history">Use one from the history</option>
       </param>
@@ -134,11 +133,11 @@
         </param>
       </when>
       <when value="history">
-        <param name="ownFile" type="data" format="fasta" metadata_name="dbkey" label="Select a reference from history" />
+        <param name="TranscriptsFile" type="data" format="fasta" label="Select a reference from history" />
       </when>
     </conditional>
     <conditional name="TE">
-      <param name="refGenomeSource" type="select" label="Will you select TE database from your history or use a built-in index?">
+      <param name="TESource" type="select" label="Will you select TE database from your history or use a built-in index?">
         <option value="indexed">Use a built-in index</option>
         <option value="history">Use one from the history</option>
       </param>
@@ -151,11 +150,11 @@
         </param>
       </when>
       <when value="history">
-        <param name="ownFile" type="data" format="fasta" metadata_name="dbkey" label="Select a reference from history" />
+        <param name="TEFile" type="data" format="fasta" label="Select a reference from history" />
       </when>
     </conditional>
     <conditional name="miRNAs">
-      <param name="refGenomeSource" type="select" label="Will you select miRNA database from your history or use a built-in index?">
+      <param name="miRNASource" type="select" label="Will you select miRNA database from your history or use a built-in index?">
         <option value="indexed">Use a built-in index</option>
         <option value="history">Use one from the history</option>
       </param>
@@ -168,11 +167,11 @@
         </param>
       </when>
       <when value="history">
-        <param name="ownFile" type="data" format="fasta" metadata_name="dbkey" label="Select a reference from history" />
+        <param name="miRNAFile" type="data" format="fasta" label="Select a reference from history" />
       </when>
     </conditional>
     <conditional name="snRNAs">
-      <param name="refGenomeSource" type="select" label="Will you select snRNA database from your history or use a built-in index?">
+      <param name="snRNASource" type="select" label="Will you select snRNA database from your history or use a built-in index?">
         <option value="indexed">Use a built-in index</option>
         <option value="history">Use one from the history</option>
         <option value="none">None</option>
@@ -186,11 +185,12 @@
         </param>
       </when>
       <when value="history">
-        <param name="ownFile" type="data" format="fasta" metadata_name="dbkey" label="Select a reference from history" />
+        <param name="snRNAFile" type="data" format="fasta" label="Select a reference from history" />
       </when>
+      <when value="none" />
     </conditional>
     <conditional name="rRNAs">
-      <param name="refGenomeSource" type="select" label="Will you select rRNAs database from your history or use a built-in index?">
+      <param name="rRNASource" type="select" label="Will you select rRNAs database from your history or use a built-in index?">
         <option value="indexed">Use a built-in index</option>
         <option value="history">Use one from the history</option>
         <option value="none">None</option>
@@ -204,11 +204,12 @@
         </param>
       </when>
       <when value="history">
-        <param name="ownFile" type="data" format="fasta" metadata_name="dbkey" label="Select a reference from history" />
+        <param name="rRNAFile" type="data" format="fasta" label="Select a reference from history" />
       </when>
+      <when value="none" />
     </conditional>
     <conditional name="tRNAs">
-      <param name="refGenomeSource" type="select" label="Will you select tRNA database from your history or use a built-in index?">
+      <param name="tRNASource" type="select" label="Will you select tRNA database from your history or use a built-in index?">
         <option value="indexed">Use a built-in index</option>
         <option value="history">Use one from the history</option>
         <option value="none">None</option>
@@ -222,8 +223,9 @@
         </param>
       </when>
       <when value="history">
-        <param name="ownFile" type="data" format="fasta" metadata_name="dbkey" label="Select a reference from history" />
+        <param name="tRNAFile" type="data" format="fasta" label="Select a reference from history" />
       </when>
+      <when value="none" />
     </conditional>
 
     <param name="min" type="integer" value="18" label="minimum read size"/>
@@ -238,15 +240,89 @@
     <param name="PPPon" type="boolean" checked="true" label="PPPartners"/>
   </inputs>
   <outputs>
-    <data  format="html" name="html_out" label="${tool.name}_${first_input.name}_${on_string}"/>
+    <data format="html" name="html_out" label="${tool.name}_${first_input.name}_${on_string}"/>
 
-       <collection format ="fastqsanger" type="list" label="${tool.name}_fastq_outputs" name="output_fastqsanger">
-            <discover_datasets format ="fastqsanger" pattern="(?P&lt;name&gt;.*)" directory="fastq_dir" />
-        </collection>
+    <collection type="list" label="${tool.name}_fastq_outputs" name="output_fastqsanger">
+      <discover_datasets format ="fastqsanger" pattern="(?P&lt;name&gt;.*)" directory="fastq_dir" />
+    </collection>
 
   </outputs>
+  <tests>
+    <test>
+      <param name="first_input" value="reads-sample-small.fastq" />
+      <param name="GenomeSource" value="history" />
+      <param name="GenomeFile" value="genome-small.fa" />
+      <param name="TranscriptsSource" value="history" />
+      <param name="TranscriptsFile" value="transcripts-file-small.fa" />
+      <param name="TESource" value="history" />
+      <param name="TEFile" value="TE-file-small.fa" />
+      <param name="miRNASource" value="history" />
+      <param name="miRNAFile" value="mirbase-21-dme-hairpins-16jul2015.fa" />
+      <param name="snRNASource" value="history" />
+      <param name="snRNAFile" value="dmel-all-sn-snoRNA-r6.03.fasta" />
+      <param name="rRNASource" value="history" />
+      <param name="rRNAFile" value="dmel-all-rRNA-r6.03.fasta" />
+      <param name="tRNASource" value="history" />
+      <param name="tRNAFile" value="dmel-all-tRNA-r6.03.fasta" />
+      <param name="min" value="18" />
+      <param name="max" value="29" />
+      <param name="si_min" value="21" />
+      <param name="si_max" value="21" />
+      <param name="pi_min" value="23" />
+      <param name="pi_max" value="29" />
+      <param name="mis" value="0" />
+      <param name="misTE" value="3" />
+      <param name="PPPon" value="true" />
+      <output name='html_out' file="res.html" compare='diff' lines_diff = '10'/>
+      <output_collection name="output_fastqsanger" type="list">
+        <element name="reads-sample-small.fastq_all_mappers.fastq" file="fastq_dir/reads-sample-small.fastq_all_mappers.fastq" />
+        <element name="reads-sample-small.fastq-bonafide_reads-genome.fastq" file="fastq_dir/reads-sample-small.fastq-bonafide_reads-genome.fastq" />
+        <element name="reads-sample-small.fastq-bonafide_reads-genome_uni.fastq" file="fastq_dir/reads-sample-small.fastq-bonafide_reads-genome_uni.fastq" />
+        <element name="reads-sample-small.fastq-bonafide_reads-TEs.fastq" file="fastq_dir/reads-sample-small.fastq-bonafide_reads-TEs.fastq" />
+        <element name="reads-sample-small.fastq-bonafide_reads-TEs_uni.fastq" file="fastq_dir/reads-sample-small.fastq-bonafide_reads-TEs_uni.fastq" />
+        <element name="reads-sample-small.fastq-bonafide_reads-transcripts.fastq" file="fastq_dir/reads-sample-small.fastq-bonafide_reads-transcripts.fastq" />
+        <element name="reads-sample-small.fastq-bonafide_reads-transcripts_uni.fastq" file="fastq_dir/reads-sample-small.fastq-bonafide_reads-transcripts_uni.fastq" />
+        <element name="reads-sample-small.fastq-miRNAs-genome.fastq" file="fastq_dir/reads-sample-small.fastq-miRNAs-genome.fastq" />
+        <element name="reads-sample-small.fastq-miRNAs-genome_uni.fastq" file="fastq_dir/reads-sample-small.fastq-miRNAs-genome_uni.fastq" />
+        <element name="reads-sample-small.fastq-miRNAs-TEs_uni.fastq" file="fastq_dir/reads-sample-small.fastq-miRNAs-TEs_uni.fastq" />
+        <element name="reads-sample-small.fastq-miRNAs-transcripts.fastq" file="fastq_dir/reads-sample-small.fastq-miRNAs-transcripts.fastq" />
+        <element name="reads-sample-small.fastq-miRNAs-transcripts_uni.fastq" file="fastq_dir/reads-sample-small.fastq-miRNAs-transcripts_uni.fastq" />
+        <element name="reads-sample-small.fastq-piRNAs-genome.fastq" file="fastq_dir/reads-sample-small.fastq-piRNAs-genome.fastq" />
+        <element name="reads-sample-small.fastq-piRNAs-genome_uni.fastq" file="fastq_dir/reads-sample-small.fastq-piRNAs-genome_uni.fastq" />
+        <element name="reads-sample-small.fastq-piRNAs-TEs.fastq" file="fastq_dir/reads-sample-small.fastq-piRNAs-TEs.fastq" />
+        <element name="reads-sample-small.fastq-piRNAs-TEs_uni.fastq" file="fastq_dir/reads-sample-small.fastq-piRNAs-TEs_uni.fastq" />
+        <element name="reads-sample-small.fastq-piRNAs-transcripts.fastq" file="fastq_dir/reads-sample-small.fastq-piRNAs-transcripts.fastq" />
+        <element name="reads-sample-small.fastq-piRNAs-transcripts_uni.fastq" file="fastq_dir/reads-sample-small.fastq-piRNAs-transcripts_uni.fastq" />
+        <element name="reads-sample-small.fastq-siRNAs-genome.fastq" file="fastq_dir/reads-sample-small.fastq-siRNAs-genome.fastq" />
+        <element name="reads-sample-small.fastq-siRNAs-genome_uni.fastq" file="fastq_dir/reads-sample-small.fastq-siRNAs-genome_uni.fastq" />
+        <element name="reads-sample-small.fastq-siRNAs-TEs.fastq" file="fastq_dir/reads-sample-small.fastq-siRNAs-TEs.fastq" />
+        <element name="reads-sample-small.fastq-siRNAs-TEs_uni.fastq" file="fastq_dir/reads-sample-small.fastq-siRNAs-TEs_uni.fastq" />
+        <element name="reads-sample-small.fastq-siRNAs-transcripts.fastq" file="fastq_dir/reads-sample-small.fastq-siRNAs-transcripts.fastq" />
+        <element name="reads-sample-small.fastq-siRNAs-transcripts_uni.fastq" file="fastq_dir/reads-sample-small.fastq-siRNAs-transcripts_uni.fastq" />
+        <element name="reads-sample-small.fastq_unique_mappers.fastq" file="fastq_dir/reads-sample-small.fastq_unique_mappers.fastq" />
+        <element name="reads-sample-small.fastq_unmapped.fastq" file="fastq_dir/reads-sample-small.fastq_unmapped.fastq" />
+      </output_collection>
+    </test>
+  </tests>
   <help>
  	**User manual**
  	"https://github.com/brassetjensen/sRNAPipe/blob/master/sRNAPipe_User_Manual.pdf"
   </help>
+  <citations>
+    <citation type="doi">10.1038/nature12962</citation>
+    <citation type="doi">10.1038/nature11233</citation>
+    <citation type="doi">10.1186/gb4172</citation>
+    <citation type="doi">10.1038/nature04916</citation>
+    <citation type="doi">10.1016/j.cell.2007.01.043</citation>
+    <citation type="doi">10.1016/j.celrep.2015.02.062</citation>
+    <citation type="doi">10.1093/bioinformatics/btp324</citation>
+    <citation type="doi">10.1093/bioinformatics/btp352</citation>
+    <citation type="doi">10.1002/0471250953.bi1112s47</citation>
+    <citation type="doi">10.1093/bioinformatics/btu379</citation>
+    <citation type="doi">10.1002/embr.201337898</citation>
+    <citation type="doi">10.1038/ncomms13739</citation>
+    <citation type="doi">10.1093/nar/gkt310</citation>
+    <citation type="doi">10.1186/s13072-015-0041-5</citation>
+    <citation type="doi">10.1093/bioinformatics/btu647</citation>
+  </citations>
 </tool>

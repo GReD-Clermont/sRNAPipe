@@ -1,0 +1,8 @@
+type	number	percentage
+TEs	26344	67.48
+miRNAs	63	0.16
+others	1939	4.97
+rRNAs	8170	20.93
+snRNAs	81	0.21
+tRNAs	196	0.50
+transcripts	2247	5.76

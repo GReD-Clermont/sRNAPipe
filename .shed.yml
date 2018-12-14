@@ -1,0 +1,4 @@
+categories: [RNA]
+description: A pipeline for bioinformatic in-depth exploration of small RNAseq data.
+name: srnapipe
+owner: brasset_jensen

@@ -1,0 +1,397 @@
+
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <title>pipeline</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- Le styles -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/bootstrap-table.css" rel="stylesheet">
+  <style type="text/css">
+  body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+  }
+  div#page {
+    width: 940px;
+    background-color: #fff;
+    margin: 0 auto;
+    text-align: left;
+    border-color: #fff;
+    border-style: none solid solid;
+    border-width: medium 1px 1px;
+  }
+
+  div.content {
+   	display: none;
+	  float: right;
+	  width: 550px;
+  }
+  div.content a, div.navigation a {
+    text-decoration: none;
+   	color: #777;
+  }
+  div.content a:focus, div.content a:hover, div.content a:active {
+    text-decoration: underline;
+  }
+  
+  div.controls {
+    margin-top: 5px;
+	  height: 23px;
+  }
+  
+  div.controls a {
+	  padding: 5px;
+  }
+  div.ss-controls {
+	  float: left;
+  }
+  div.nav-controls {
+	  float: right;
+  }
+  div.slideshow-container {
+	  position: relative;
+	  clear: both;
+	  height: 502px; /* This should be set to be at least the height of the largest image in the slideshow */
+  }
+  div.loader {
+  	position: absolute;
+  	top: 0;
+  	left: 0;
+    background-image: url('loader.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+  	width: 550px;
+  	height: 502px; /* This should be set to be at least the height of the largest image in the slideshow */
+  }
+  div.slideshow {
+    
+  }
+  
+  div.slideshow span.image-wrapper {
+	  display: block;
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+  }
+  div.slideshow a.advance-link {
+	  display: block;
+ 	  width: 550px;
+    height: 502px; /* This should be set to be at least the height of the largest image in the slideshow */
+    line-height: 502px; /* This should be set to be at least the height of the largest image in the slideshow */
+    text-align: center;
+  }
+  div.slideshow a.advance-link:hover, div.slideshow a.advance-link:active, div.slideshow a.advance-link:visited {
+    text-decoration: none;
+  }
+  div.slideshow img {
+    vertical-align: middle;
+	border: 1px solid #ccc;
+  }
+
+  div.image-title {
+    font-weight: bold;
+    font-size: 1.4em;
+  }
+
+  div.image-desc {
+    line-height: 1.3em;
+    padding-top: 12px;
+  }
+  div.navigation {
+
+  }
+  ul.thumbs {
+	clear: both;
+	margin: 0;
+	padding: 0;
+  }
+  ul.thumbs li {
+	float: none;
+	padding: 0;
+	margin: 0;
+    list-style: none;
+  }
+  a.thumb {
+	padding: 0;
+	display: inline;
+	border: none;
+  }
+  ul.thumbs li.selected a.thumb {
+	color: #000;
+    font-weight: bold;
+  }
+  a.thumb:focus {
+	outline: none;
+  }
+  ul.thumbs img {
+	border: none;
+	display: block;
+  }
+  div.pagination {
+	clear: both;
+  }
+  div.navigation div.top {
+    margin-bottom: 12px;
+	height: 11px;
+  }
+  div.navigation div.bottom {
+    margin-top: 12px;
+  }
+  div.pagination a, div.pagination span.current, div.pagination span.ellipsis {
+	display: block;
+	float: left;
+    margin-right: 2px;
+	padding: 4px 7px 2px 7px;
+	border: 1px solid #ccc;
+  }
+  div.pagination a:hover {
+    background-color: #eee;
+    text-decoration: none;
+  }
+  div.pagination span.current {
+    font-weight: bold;
+    background-color: #000;
+    border-color: #000;
+	color: #fff;
+  }
+  div.pagination span.ellipsis {
+	border: none;
+	padding: 5px 0 3px 2px;
+  }
+  
+  div.download {
+	float: right;
+  }
+  
+  div.caption-container {
+	position: relative;
+	clear: left;
+	height: 75px;
+  }
+  span.image-caption {
+	display: block;
+	position: absolute;
+	width: 550px;
+	top: 0;
+	left: 0;
+  }
+  div.caption {
+	padding: 12px;
+  }
+
+  /* Featurettes
+  ------------------------- */
+
+  .featurette {
+  padding-top: 20px; /* Vertically center images part 1: add padding above and below text. */
+  overflow: hidden; /* Vertically center images part 2: clear their floats. */
+  text-align: center;
+  }
+
+  .featurette-p
+  {
+   text-align: left;
+  }
+
+  .featurette-image {
+  margin-top: 10px; /* Vertically center images part 3: negative margin up the image the same amount of the padding to center it. */
+  width: 450px;
+  height: auto;
+  }
+
+  </style>
+  <link href="css/bootstrap-responsive.css" rel="stylesheet">
+  </head>
+  <body>
+  
+  <div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+  <div class="container">
+  <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+  <span class="icon-bar"></span>
+  <span class="icon-bar"></span>
+  <span class="icon-bar"></span>
+  </button>
+  <a class="brand" href="report.txt">Report</a>
+  <div class="nav-collapse collapse">
+  <ul class="nav">
+  <li class="active"><a href="reads-sample-small.fastq.html">reads-sample-small.fastq</a></li>
+  </ul>
+  </div><!--/.nav-collapse -->
+  </div>
+  </div>
+  </div>
+  <div class="container">
+  <div class="featurette">
+  <h1>Genome</h1>
+  <p class="featurette-p">
+  <A HREF="reads-sample-small.fastq/subgroups/siRNAs//siRNAs-genome_minus.bedgraph">bedgraph minus strand</A><br/> 
+<A HREF="reads-sample-small.fastq/subgroups/siRNAs//siRNAs-genome_plus.bedgraph">bedgraph plus strand</A><br/> 
+<A HREF="reads-sample-small.fastq/subgroups/siRNAs//siRNAs-genome_sorted.bam">genome mappers (sorted bam)</A><br/> 
+<A HREF="reads-sample-small.fastq/subgroups/siRNAs//siRNAs-genome_unique_minus.bedgraph">bedgraph unique minus strand</A><br/> 
+<A HREF="reads-sample-small.fastq/subgroups/siRNAs//siRNAs-genome_unique_plus.bedgraph">bedgraph unique plus strand</A><br/> 
+<A HREF="reads-sample-small.fastq/subgroups/siRNAs//siRNAs-genome_unique_sorted.bam">genome unique mappers (sorted bam)</A><br/> 
+
+  </p>
+  </div>
+  </div>
+  
+  <div id="page">
+  <div id="container">
+  <div class="each-gallery">
+  <div id="gallery" class="content">
+  <div id="controls0" class="controls"></div>
+  <div class="slideshow-container">
+  <div id="loading0" class="loader"></div>
+  <div id="slideshow0" class="slideshow"></div>
+  </div>
+  <div id="caption0" class="caption-container">Uniquely mapped reads</div>
+  </div>
+  <div id="thumbs0" class="navigation">
+  <input type="text" id="myInput0" onkeyup="search(this)" placeholder="Search for names...">
+  <ul class="thumbs noscript">
+  
+    <li>
+    <a class="thumb"  href="reads-sample-small.fastq/subgroups/siRNAs//Gviz_genome/unique/chrom_1.png" title="chrom_1">chrom_1</a>
+    </li>
+    
+    <li>
+    <a class="thumb"  href="reads-sample-small.fastq/subgroups/siRNAs//Gviz_genome/unique/chrom_2.png" title="chrom_2">chrom_2</a>
+    </li>
+    
+    <li>
+    <a class="thumb"  href="reads-sample-small.fastq/subgroups/siRNAs//Gviz_genome/unique/chrom_4.png" title="chrom_4">chrom_4</a>
+    </li>
+    
+    <li>
+    <a class="thumb"  href="reads-sample-small.fastq/subgroups/siRNAs//Gviz_genome/unique/chrom_5.png" title="chrom_5">chrom_5</a>
+    </li>
+    
+    <li>
+    <a class="thumb"  href="reads-sample-small.fastq/subgroups/siRNAs//Gviz_genome/unique/chrom_6.png" title="chrom_6">chrom_6</a>
+    </li>
+    
+  </ul>
+  </div>
+  </div>
+  <div id="page">
+  <div id="container">
+  <div class="each-gallery">
+  <div id="gallery" class="content">
+  <div id="controls1" class="controls"></div>
+  <div class="slideshow-container">
+  <div id="loading1" class="loader"></div>
+  <div id="slideshow1" class="slideshow"></div>
+  </div>
+  <div id="caption1" class="caption-container">Reads randomly assigned</div>
+  </div>
+  <div id="thumbs1" class="navigation">
+  <input type="text" id="myInput1" onkeyup="search(this)" placeholder="Search for names...">
+  <ul class="thumbs noscript">
+  
+        <li>
+        <a class="thumb"  href="reads-sample-small.fastq/subgroups/siRNAs//Gviz_genome/rand/chrom_1.png" title="chrom_1">chrom_1</a>
+        </li>
+        
+        <li>
+        <a class="thumb"  href="reads-sample-small.fastq/subgroups/siRNAs//Gviz_genome/rand/chrom_2.png" title="chrom_2">chrom_2</a>
+        </li>
+        
+        <li>
+        <a class="thumb"  href="reads-sample-small.fastq/subgroups/siRNAs//Gviz_genome/rand/chrom_4.png" title="chrom_4">chrom_4</a>
+        </li>
+        
+        <li>
+        <a class="thumb"  href="reads-sample-small.fastq/subgroups/siRNAs//Gviz_genome/rand/chrom_5.png" title="chrom_5">chrom_5</a>
+        </li>
+        
+        <li>
+        <a class="thumb"  href="reads-sample-small.fastq/subgroups/siRNAs//Gviz_genome/rand/chrom_6.png" title="chrom_6">chrom_6</a>
+        </li>
+        
+  </ul>
+  </div>
+  <div style="clear: both;"></div></div>
+  </div>
+  </div>
+  
+  <!-- FOOTER -->
+  <div class="container">
+  <footer>
+  
+  </footer>
+  </div>
+  <!-- Le javascript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script type="text/javascript" src="js/filter.js"></script>
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript" src="js/jquery-1.3.2.js"></script>
+  <script type="text/javascript" src="js/jquery.galleriffic.js"></script>
+  <script type="text/javascript" src="js/jquery.opacityrollover.js"></script>
+  <script type="text/javascript" src="js/bootstrap-table.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+  jQuery(document).ready(function($) {
+    // We only want these styles applied when javascript is enabled
+    $('div.navigation').css({'width' : '300px', 'float' : 'left'});
+    $('div.content').css('display', 'block');
+    
+    $(".each-gallery").each(function(i){
+      // Initially set opacity on thumbs and add
+      // additional styling for hover effect on thumbs
+        var onMouseOutOpacity = 0.67;
+      $('#thumbs + i + ul.thumbs li').opacityrollover({
+      mouseOutOpacity:   onMouseOutOpacity,
+      mouseOverOpacity:  1.0,
+      fadeSpeed:         'fast',
+      exemptionSelector: '.selected'
+      });
+      
+      // Initialize Advanced Galleriffic Gallery
+      var gallery = $('#thumbs'+i).galleriffic({
+      delay:                     2500,
+      numThumbs:                 22,
+      preloadAhead:              10,
+      enableTopPager:            true,
+      enableBottomPager:         true,
+      maxPagesToShow:            7,
+      imageContainerSel:         '#slideshow'+ i,
+      controlsContainerSel:      '#controls' + i,
+      captionContainerSel:       '#caption' + i,
+      loadingContainerSel:       '#loading' + i,
+      renderSSControls:          true,
+      renderNavControls:         true,
+      playLinkText:              'Play',
+      pauseLinkText:             'Pause',
+      prevLinkText:              '&lsaquo; Previous',
+      nextLinkText:              'Next &rsaquo;',
+      nextPageLinkText:          'Next &rsaquo;',
+      prevPageLinkText:          '&lsaquo; Prev',
+      enableHistory:             false,
+      autoStart:                 false,
+      syncTransitions:           true,
+      defaultTransitionDuration: 900,
+      onSlideChange:             function(prevIndex, nextIndex) {
+        // 'this' refers to the gallery, which is an extension of $('#thumbs')
+        this.find('ul.thumbs').children()
+        .eq(prevIndex).fadeTo('fast', onMouseOutOpacity).end()
+        .eq(nextIndex).fadeTo('fast', 1.0);
+      },
+      onPageTransitionOut:       function(callback) {
+        this.fadeTo('fast', 0.0, callback);
+      },
+      onPageTransitionIn:        function() {
+        this.fadeTo('fast', 1.0);
+      }
+      });
+    });
+  });
+  </script>
+  </body>
+  </html>
+  

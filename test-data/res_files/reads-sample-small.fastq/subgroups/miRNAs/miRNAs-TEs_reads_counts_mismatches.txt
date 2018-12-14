@@ -1,0 +1,18 @@
+ID	reads counts	RPKM	per million of piRNAs	per million of miRNAs	per million of bonafide reads	sense reads counts	reverse reads counts	% of sense 1U	% of sense 10A	% of reverse 1U	% of reverse 10A
+BATUMI_I	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+BATUMI_LTR	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+BS2	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+COPIA_DM_I	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+COPIA_DM_LTR	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+DMCR1A	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+DMRT1B	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+FW	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+G6_DM	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+Gypsy2-I_DM	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+Gypsy2-LTR_DM	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+I_DM	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+MAX_I	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+MAX_LTR	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+PROTOP	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+ZAM_I	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+ZAM_LTR	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0

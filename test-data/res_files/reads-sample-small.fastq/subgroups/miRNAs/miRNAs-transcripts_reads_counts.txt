@@ -1,0 +1,14 @@
+ID	reads counts	RPKM	per million of piRNAs	per million of miRNAs	per million of bonafide reads	sense reads counts	reverse reads counts	% of sense 1U	% of sense 10A	% of reverse 1U	% of reverse 10A
+FBtr0073689	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+FBtr0078666	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+FBtr0086080	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+FBtr0089125	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+FBtr0089196	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+FBtr0113825	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+FBtr0114365	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+FBtr0310270	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+FBtr0332656	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+FBtr0345361	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+FBtr0345575	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+FBtr0345650	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
+FBtr0346343	0	0.00	0.00	0.00	0.00	0	0	0	0	0	0
