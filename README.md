@@ -1,5 +1,5 @@
 # sRNAPipe
-a GALAXY-based pipeline for bioinformatic in-depth exploration of small RNA-seq data
+A GALAXY-based pipeline for bioinformatic in-depth exploration of small RNA-seq data
 
 Description
 =============
