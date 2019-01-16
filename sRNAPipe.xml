@@ -1,270 +1,270 @@
 <tool id="sRNAPipe" name="sRNAPipe" version="1.0">
-  <description>In-depth study of small RNA</description>
-  <macros>
-    <xml name="source">
-      <conditional name="source">
-        <param name="source" type="select" label="Will you select the database from your history or use a built-in index?">
-          <option value="indexed">Use a built-in index</option>
-          <option value="history">Use one from the history</option>
-        </param>
-        <when value="indexed">
-          <param name="indices" argument="@ARG@" type="select" label="Select a reference genome" help="Also use @BUILD@">
-            <options from_data_table="bwa_indexes">
-              <filter type="sort_by" column="2" />
-              <validator type="no_options" message="No indexes are available" />
-            </options>
-          </param>
-        </when>
-        <when value="history">
-          <param name="file" argument="@ARG@" type="data" format="fasta" label="Select a reference from history" />
-        </when>
-      </conditional>
-    </xml>
-  </macros>
-  <requirements>
-    <requirement type="package" version="0.7.12">bwa</requirement>
-    <requirement type="package" version="2.24">bedtools</requirement>
-    <requirement type="package" version="1.5">samtools</requirement>
-    <requirement type="package" version="3.3.2">r-base</requirement>
-    <requirement type="package" version="5.22.0">perl</requirement>
-    <requirement type="package" version="2.50">perl-getopt-long</requirement>
-    <requirement type="package" version="1.17">perl-parallel-forkmanager</requirement>
-    <requirement type="package" version="0.34" >perl-statistics-r</requirement>
-    <requirement type="package" version="0.30">perl-string-random</requirement>
-    <requirement type="package" version="0.38" >perl-file-copy-recursive</requirement>
-    <requirement type="package" version="0.1" >perl-math-cdf</requirement>
-    <requirement type="package" version="3.6">r-plotrix</requirement>
-    <requirement type="package" version="1.14.0">bioconductor-sushi</requirement>
-    <requirement type="package" version="1.1_2">r-rcolorbrewer</requirement>
-    <requirement type="package" version="2.2.1">r-ggplot2</requirement>
-  </requirements>
-  <command detect_errors="aggressive"><![CDATA[
-    perl '$__tool_directory__/bin/sRNAPipe.pl'
+    <description>In-depth study of small RNA</description>
+    <macros>
+        <xml name="source">
+            <conditional name="source">
+                <param name="source" type="select" label="Will you select the database from your history or use a built-in index?">
+                    <option value="indexed">Use a built-in index</option>
+                    <option value="history">Use one from the history</option>
+                </param>
+                <when value="indexed">
+                    <param name="indices" argument="@ARG@" type="select" label="Select a reference genome" help="Also use @BUILD@">
+                        <options from_data_table="bwa_indexes">
+                            <filter type="sort_by" column="2" />
+                            <validator type="no_options" message="No indexes are available" />
+                        </options>
+                    </param>
+                </when>
+                <when value="history">
+                    <param name="file" argument="@ARG@" type="data" format="fasta" label="Select a reference from history" />
+                </when>
+            </conditional>
+        </xml>
+    </macros>
+    <requirements>
+        <requirement type="package" version="0.7.12">bwa</requirement>
+        <requirement type="package" version="2.24">bedtools</requirement>
+        <requirement type="package" version="1.5">samtools</requirement>
+        <requirement type="package" version="3.3.2">r-base</requirement>
+        <requirement type="package" version="5.22.0">perl</requirement>
+        <requirement type="package" version="2.50">perl-getopt-long</requirement>
+        <requirement type="package" version="1.17">perl-parallel-forkmanager</requirement>
+        <requirement type="package" version="0.34" >perl-statistics-r</requirement>
+        <requirement type="package" version="0.30">perl-string-random</requirement>
+        <requirement type="package" version="0.38" >perl-file-copy-recursive</requirement>
+        <requirement type="package" version="0.1" >perl-math-cdf</requirement>
+        <requirement type="package" version="3.6">r-plotrix</requirement>
+        <requirement type="package" version="1.14.0">bioconductor-sushi</requirement>
+        <requirement type="package" version="1.1_2">r-rcolorbrewer</requirement>
+        <requirement type="package" version="2.2.1">r-ggplot2</requirement>
+    </requirements>
+    <command detect_errors="aggressive"><![CDATA[
+        perl '$__tool_directory__/bin/sRNAPipe.pl'
 
-    --fastq '${first_input}'
-    --fastq_n '${first_input.name}'
-    #for $input_file in $input_files:
-    --fastq '${input_file.additional_input}'
-    --fastq_n '${input_file.additional_input.name}'
-    #end for
+        --fastq '${first_input}'
+        --fastq_n '${first_input.name}'
+        #for $input_file in $input_files:
+        --fastq '${input_file.additional_input}'
+        --fastq_n '${input_file.additional_input.name}'
+        #end for
 
-    #if $genome.source.source == "history":
-    --ref '${genome.source.file}'
-    --build_index
-    #else:
-    --ref '${genome.source.indices.fields.path}'
-    #end if
+        #if $genome.source.source == "history":
+        --ref '${genome.source.file}'
+        --build_index
+        #else:
+        --ref '${genome.source.indices.fields.path}'
+        #end if
 
-    #if $tRNAs.source.source == "history":
-    --tRNAs '${tRNAs.source.file}'
-    --build_tRNAs
-    #elif $tRNAs.source.source == "none":
-    --tRNAs "None"
-    #else:
-    --tRNAs '${tRNAs.source.indices.fields.path}'
-    #end if
+        #if $tRNAs.source.source == "history":
+        --tRNAs '${tRNAs.source.file}'
+        --build_tRNAs
+        #elif $tRNAs.source.source == "none":
+        --tRNAs "None"
+        #else:
+        --tRNAs '${tRNAs.source.indices.fields.path}'
+        #end if
 
-    #if $snRNAs.source.source == "history":
-    --snRNAs '${snRNAs.source.file}'
-    --build_snRNAs
-    #elif $snRNAs.source.source == "none":
-    --snRNAs "None"
-    #else:
-    --snRNAs '${snRNAs.source.indices.fields.path}'
-    #end if
+        #if $snRNAs.source.source == "history":
+        --snRNAs '${snRNAs.source.file}'
+        --build_snRNAs
+        #elif $snRNAs.source.source == "none":
+        --snRNAs "None"
+        #else:
+        --snRNAs '${snRNAs.source.indices.fields.path}'
+        #end if
 
-    #if $rRNAs.source.source == "history":
-    --rRNAs '${rRNAs.source.file}'
-    --build_rRNAs
-    #elif $rRNAs.source.source == "none":
-    --rRNAs "None"
-    #else:
-    --rRNAs '${rRNAs.source.indices.fields.path}'
-    #end if
+        #if $rRNAs.source.source == "history":
+        --rRNAs '${rRNAs.source.file}'
+        --build_rRNAs
+        #elif $rRNAs.source.source == "none":
+        --rRNAs "None"
+        #else:
+        --rRNAs '${rRNAs.source.indices.fields.path}'
+        #end if
 
-    #if $miRNAs.source.source == "history":
-    --miRNAs '${miRNAs.source.file}'
-    --build_miRNAs
-    #else:
-    --miRNAs '${miRNAs.source.indices.fields.path}'
-    #end if
+        #if $miRNAs.source.source == "history":
+        --miRNAs '${miRNAs.source.file}'
+        --build_miRNAs
+        #else:
+        --miRNAs '${miRNAs.source.indices.fields.path}'
+        #end if
 
-    #if $transcripts.source.source == "history":
-    --transcripts '${transcripts.source.file}'
-    --build_transcripts
-    #else:
-    --transcripts '${transcripts.source.indices.fields.path}'
-    #end if
+        #if $transcripts.source.source == "history":
+        --transcripts '${transcripts.source.file}'
+        --build_transcripts
+        #else:
+        --transcripts '${transcripts.source.indices.fields.path}'
+        #end if
 
-    #if $TE.source.source == "history":
-    --TE '${TE.source.file}'
-    --build_TE
-    #else:
-    --TE '${TE.source.indices.fields.path}'
-    #end if
+        #if $TE.source.source == "history":
+        --TE '${TE.source.file}'
+        --build_TE
+        #else:
+        --TE '${TE.source.indices.fields.path}'
+        #end if
 
-    --si_min $si_min
-    --si_max $si_max
-    --pi_min $pi_min
-    --pi_max $pi_max
-    --min $min
-    --max $max
+        --si_min $si_min
+        --si_max $si_max
+        --pi_min $pi_min
+        --pi_max $pi_max
+        --min $min
+        --max $max
 
-    --mis $mis
-    --misTE $misTE
-    --dir $html_out.files_path
-    --html $html_out
-    --PPPon $PPPon
-    ]]>
-  </command>
+        --mis $mis
+        --misTE $misTE
+        --dir $html_out.files_path
+        --html $html_out
+        --PPPon $PPPon
+        ]]>
+    </command>
 
-  <inputs>
-    <param name="first_input" argument="--fastq" type="data" format="fastqsanger" label="fastqsanger (Q33)" help="Also set a name with --fastq_n"/>
-    <repeat name="input_files" title="Additional Fastq Files">
-      <param name="additional_input" argument="--fastq" type="data" format="fastqsanger" label="fastqsanger (Q33)" help="Also set a name after each fastq with --fastq_n"/>
-    </repeat>
-    <section name="genome" title="Reference genome" expanded="true">
-      <expand macro="source" arg="--ref" build="--build_index"/>
-    </section>
-    <section name="transcripts" title="Transcripts" expanded="true">
-      <expand macro="source" arg="--transcripts" build="--build_transcripts"/>
-    </section>
-    <section name="TE" title="Transposable Elements" expanded="true">
-      <expand macro="source" arg="--TE" build="--build_TE"/>
-    </section>
-    <section name="miRNAs" title="miRNAs" expanded="true">
-      <expand macro="source" arg="--miRNAs" build="--build_miRNAs"/>
-    </section>
-    <section name="snRNAs" title="snRNAs" expanded="true">
-      <expand macro="source" arg="--snRNAs" build="--build_snRNAs"/>
-    </section>
-    <section name="rRNAs" title="rRNAs" expanded="true">
-      <expand macro="source" arg="--rRNAs" build="--build_rRNAs"/>
-    </section>
-    <section name="tRNAs" title="tRNAs" expanded="true">
-      <expand macro="source" arg="--tRNAs" build="--build_tRNAs"/>
-    </section>
+    <inputs>
+        <param name="first_input" argument="--fastq" type="data" format="fastqsanger" label="fastqsanger (Q33)" help="Also set a name with --fastq_n"/>
+        <repeat name="input_files" title="Additional Fastq Files">
+            <param name="additional_input" argument="--fastq" type="data" format="fastqsanger" label="fastqsanger (Q33)" help="Also set a name after each fastq with --fastq_n"/>
+        </repeat>
+        <section name="genome" title="Reference genome" expanded="true">
+            <expand macro="source" arg="--ref" build="--build_index"/>
+        </section>
+        <section name="transcripts" title="Transcripts" expanded="true">
+            <expand macro="source" arg="--transcripts" build="--build_transcripts"/>
+        </section>
+        <section name="TE" title="Transposable Elements" expanded="true">
+            <expand macro="source" arg="--TE" build="--build_TE"/>
+        </section>
+        <section name="miRNAs" title="miRNAs" expanded="true">
+            <expand macro="source" arg="--miRNAs" build="--build_miRNAs"/>
+        </section>
+        <section name="snRNAs" title="snRNAs" expanded="true">
+            <expand macro="source" arg="--snRNAs" build="--build_snRNAs"/>
+        </section>
+        <section name="rRNAs" title="rRNAs" expanded="true">
+            <expand macro="source" arg="--rRNAs" build="--build_rRNAs"/>
+        </section>
+        <section name="tRNAs" title="tRNAs" expanded="true">
+            <expand macro="source" arg="--tRNAs" build="--build_tRNAs"/>
+        </section>
 
-    <param name="min" argument="--min" type="integer" value="18" label="minimum read size"/>
-    <param name="max" argument="--max" type="integer" value="29" label="maximum read size"/>
-    <param name="si_min" argument="--si_min" type="integer" value="21" label="lower bound of siRNA range"/>
-    <param name="si_max" argument="--si_max" type="integer" value="21" label="higher bound of siRNA range"/>
-    <param name="pi_min" argument="--pi_min" type="integer" value="23" label="lower bound of piRNA range"/>
-    <param name="pi_max" argument="--pi_max" type="integer" value="29" label="higher bound of piRNA range"/>
-    <param name="mis" argument="--mis" type="integer" value="0" label="maximal genome mismatches"/>
-    <param name="misTE" argument="--misTE" type="integer" value="3" label="maximal TE mismatches"/>
-    <param name="PPPon" argument="--PPPon" type="boolean" checked="true" label="PPPartners"/>
-  </inputs>
-  <outputs>
-    <data format="html" name="html_out" label="${tool.name} on ${first_input.name} (${on_string}): HTML report"/>
-    <collection type="list" label="${tool.name}_fastq_outputs" name="output_fastqsanger">
-      <discover_datasets format ="fastqsanger" pattern="__designation_and_ext__" directory="fastq_dir" />
-    </collection>
-  </outputs>
-  <tests>
-    <test>
-      <param name="first_input" value="reads-sample-small.fastq" />
-      <section name="genome">
-        <conditional name="source">
-          <param name="source" value="history" />
-          <param name="file" value ="genome-small.fa" />
-        </conditional>
-      </section>
-      <section name="transcripts">
-        <conditional name="source">
-          <param name="source" value="history" />
-          <param name="file" value ="transcripts-file-small.fa" />
-        </conditional>
-      </section>
-      <section name="TE">
-        <conditional name="source">
-          <param name="source" value="history" />
-          <param name="file" value ="TE-file-small.fa" />
-        </conditional>
-      </section>
-      <section name="miRNAs">
-        <conditional name="source">
-          <param name="source" value="history" />
-          <param name="file" value ="mirbase-21-dme-hairpins-16jul2015.fa" />
-        </conditional>
-      </section>
-      <section name="snRNAs">
-        <conditional name="source">
-          <param name="source" value="history" />
-          <param name="file" value ="dmel-all-sn-snoRNA-r6.03.fasta" />
-        </conditional>
-      </section>
-      <section name="rRNAs">
-        <conditional name="source">
-          <param name="source" value="history" />
-          <param name="file" value ="dmel-all-rRNA-r6.03.fasta" />
-        </conditional>
-      </section>
-      <section name="tRNAs">
-        <conditional name="source">
-          <param name="source" value="history" />
-          <param name="file" value ="dmel-all-tRNA-r6.03.fasta" />
-        </conditional>
-      </section>
-      <param name="min" value="18" />
-      <param name="max" value="29" />
-      <param name="si_min" value="21" />
-      <param name="si_max" value="21" />
-      <param name="pi_min" value="23" />
-      <param name="pi_max" value="29" />
-      <param name="mis" value="0" />
-      <param name="misTE" value="3" />
-      <param name="PPPon" value="true" />
-      <output name='html_out' file="res.html" compare='diff' lines_diff = '10'/>
-      <output_collection name="output_fastqsanger" type="list">
-        <element name="reads-sample-small.fastq_all_mappers" file="fastq_dir/reads-sample-small.fastq_all_mappers.fastq" />
-        <element name="reads-sample-small.fastq-bonafide_reads-genome" file="fastq_dir/reads-sample-small.fastq-bonafide_reads-genome.fastq" />
-        <element name="reads-sample-small.fastq-bonafide_reads-genome_uni" file="fastq_dir/reads-sample-small.fastq-bonafide_reads-genome_uni.fastq" />
-        <element name="reads-sample-small.fastq-bonafide_reads-TEs" file="fastq_dir/reads-sample-small.fastq-bonafide_reads-TEs.fastq" />
-        <element name="reads-sample-small.fastq-bonafide_reads-TEs_uni" file="fastq_dir/reads-sample-small.fastq-bonafide_reads-TEs_uni.fastq" />
-        <element name="reads-sample-small.fastq-bonafide_reads-transcripts" file="fastq_dir/reads-sample-small.fastq-bonafide_reads-transcripts.fastq" />
-        <element name="reads-sample-small.fastq-bonafide_reads-transcripts_uni" file="fastq_dir/reads-sample-small.fastq-bonafide_reads-transcripts_uni.fastq" />
-        <element name="reads-sample-small.fastq-miRNAs-genome" file="fastq_dir/reads-sample-small.fastq-miRNAs-genome.fastq" />
-        <element name="reads-sample-small.fastq-miRNAs-genome_uni" file="fastq_dir/reads-sample-small.fastq-miRNAs-genome_uni.fastq" />
-        <element name="reads-sample-small.fastq-miRNAs-TEs_uni" file="fastq_dir/reads-sample-small.fastq-miRNAs-TEs_uni.fastq" />
-        <element name="reads-sample-small.fastq-miRNAs-transcripts" file="fastq_dir/reads-sample-small.fastq-miRNAs-transcripts.fastq" />
-        <element name="reads-sample-small.fastq-miRNAs-transcripts_uni" file="fastq_dir/reads-sample-small.fastq-miRNAs-transcripts_uni.fastq" />
-        <element name="reads-sample-small.fastq-piRNAs-genome" file="fastq_dir/reads-sample-small.fastq-piRNAs-genome.fastq" />
-        <element name="reads-sample-small.fastq-piRNAs-genome_uni" file="fastq_dir/reads-sample-small.fastq-piRNAs-genome_uni.fastq" />
-        <element name="reads-sample-small.fastq-piRNAs-TEs" file="fastq_dir/reads-sample-small.fastq-piRNAs-TEs.fastq" />
-        <element name="reads-sample-small.fastq-piRNAs-TEs_uni" file="fastq_dir/reads-sample-small.fastq-piRNAs-TEs_uni.fastq" />
-        <element name="reads-sample-small.fastq-piRNAs-transcripts" file="fastq_dir/reads-sample-small.fastq-piRNAs-transcripts.fastq" />
-        <element name="reads-sample-small.fastq-piRNAs-transcripts_uni" file="fastq_dir/reads-sample-small.fastq-piRNAs-transcripts_uni.fastq" />
-        <element name="reads-sample-small.fastq-siRNAs-genome" file="fastq_dir/reads-sample-small.fastq-siRNAs-genome.fastq" />
-        <element name="reads-sample-small.fastq-siRNAs-genome_uni" file="fastq_dir/reads-sample-small.fastq-siRNAs-genome_uni.fastq" />
-        <element name="reads-sample-small.fastq-siRNAs-TEs" file="fastq_dir/reads-sample-small.fastq-siRNAs-TEs.fastq" />
-        <element name="reads-sample-small.fastq-siRNAs-TEs_uni" file="fastq_dir/reads-sample-small.fastq-siRNAs-TEs_uni.fastq" />
-        <element name="reads-sample-small.fastq-siRNAs-transcripts" file="fastq_dir/reads-sample-small.fastq-siRNAs-transcripts.fastq" />
-        <element name="reads-sample-small.fastq-siRNAs-transcripts_uni" file="fastq_dir/reads-sample-small.fastq-siRNAs-transcripts_uni.fastq" />
-        <element name="reads-sample-small.fastq_unique_mappers" file="fastq_dir/reads-sample-small.fastq_unique_mappers.fastq" />
-        <element name="reads-sample-small.fastq_unmapped" file="fastq_dir/reads-sample-small.fastq_unmapped.fastq" />
-      </output_collection>
-    </test>
-  </tests>
-  <help>
+        <param name="min" argument="--min" type="integer" value="18" label="minimum read size"/>
+        <param name="max" argument="--max" type="integer" value="29" label="maximum read size"/>
+        <param name="si_min" argument="--si_min" type="integer" value="21" label="lower bound of siRNA range"/>
+        <param name="si_max" argument="--si_max" type="integer" value="21" label="higher bound of siRNA range"/>
+        <param name="pi_min" argument="--pi_min" type="integer" value="23" label="lower bound of piRNA range"/>
+        <param name="pi_max" argument="--pi_max" type="integer" value="29" label="higher bound of piRNA range"/>
+        <param name="mis" argument="--mis" type="integer" value="0" label="maximal genome mismatches"/>
+        <param name="misTE" argument="--misTE" type="integer" value="3" label="maximal TE mismatches"/>
+        <param name="PPPon" argument="--PPPon" type="boolean" checked="true" label="PPPartners"/>
+    </inputs>
+    <outputs>
+        <data format="html" name="html_out" label="${tool.name} on ${first_input.name} (${on_string}): HTML report"/>
+        <collection type="list" label="${tool.name}_fastq_outputs" name="output_fastqsanger">
+            <discover_datasets format ="fastqsanger" pattern="__designation_and_ext__" directory="fastq_dir" />
+        </collection>
+    </outputs>
+    <tests>
+        <test>
+            <param name="first_input" value="reads-sample-small.fastq" />
+            <section name="genome">
+                <conditional name="source">
+                    <param name="source" value="history" />
+                    <param name="file" value ="genome-small.fa" />
+                </conditional>
+            </section>
+            <section name="transcripts">
+                <conditional name="source">
+                    <param name="source" value="history" />
+                    <param name="file" value ="transcripts-file-small.fa" />
+                </conditional>
+            </section>
+            <section name="TE">
+                <conditional name="source">
+                    <param name="source" value="history" />
+                    <param name="file" value ="TE-file-small.fa" />
+                </conditional>
+            </section>
+            <section name="miRNAs">
+                <conditional name="source">
+                    <param name="source" value="history" />
+                    <param name="file" value ="mirbase-21-dme-hairpins-16jul2015.fa" />
+                </conditional>
+            </section>
+            <section name="snRNAs">
+                <conditional name="source">
+                    <param name="source" value="history" />
+                    <param name="file" value ="dmel-all-sn-snoRNA-r6.03.fasta" />
+                </conditional>
+            </section>
+            <section name="rRNAs">
+                <conditional name="source">
+                    <param name="source" value="history" />
+                    <param name="file" value ="dmel-all-rRNA-r6.03.fasta" />
+                </conditional>
+            </section>
+            <section name="tRNAs">
+                <conditional name="source">
+                    <param name="source" value="history" />
+                    <param name="file" value ="dmel-all-tRNA-r6.03.fasta" />
+                </conditional>
+            </section>
+            <param name="min" value="18" />
+            <param name="max" value="29" />
+            <param name="si_min" value="21" />
+            <param name="si_max" value="21" />
+            <param name="pi_min" value="23" />
+            <param name="pi_max" value="29" />
+            <param name="mis" value="0" />
+            <param name="misTE" value="3" />
+            <param name="PPPon" value="true" />
+            <output name='html_out' file="res.html" compare='diff' lines_diff = '10'/>
+            <output_collection name="output_fastqsanger" type="list">
+                <element name="reads-sample-small.fastq_all_mappers" file="fastq_dir/reads-sample-small.fastq_all_mappers.fastq" />
+                <element name="reads-sample-small.fastq-bonafide_reads-genome" file="fastq_dir/reads-sample-small.fastq-bonafide_reads-genome.fastq" />
+                <element name="reads-sample-small.fastq-bonafide_reads-genome_uni" file="fastq_dir/reads-sample-small.fastq-bonafide_reads-genome_uni.fastq" />
+                <element name="reads-sample-small.fastq-bonafide_reads-TEs" file="fastq_dir/reads-sample-small.fastq-bonafide_reads-TEs.fastq" />
+                <element name="reads-sample-small.fastq-bonafide_reads-TEs_uni" file="fastq_dir/reads-sample-small.fastq-bonafide_reads-TEs_uni.fastq" />
+                <element name="reads-sample-small.fastq-bonafide_reads-transcripts" file="fastq_dir/reads-sample-small.fastq-bonafide_reads-transcripts.fastq" />
+                <element name="reads-sample-small.fastq-bonafide_reads-transcripts_uni" file="fastq_dir/reads-sample-small.fastq-bonafide_reads-transcripts_uni.fastq" />
+                <element name="reads-sample-small.fastq-miRNAs-genome" file="fastq_dir/reads-sample-small.fastq-miRNAs-genome.fastq" />
+                <element name="reads-sample-small.fastq-miRNAs-genome_uni" file="fastq_dir/reads-sample-small.fastq-miRNAs-genome_uni.fastq" />
+                <element name="reads-sample-small.fastq-miRNAs-TEs_uni" file="fastq_dir/reads-sample-small.fastq-miRNAs-TEs_uni.fastq" />
+                <element name="reads-sample-small.fastq-miRNAs-transcripts" file="fastq_dir/reads-sample-small.fastq-miRNAs-transcripts.fastq" />
+                <element name="reads-sample-small.fastq-miRNAs-transcripts_uni" file="fastq_dir/reads-sample-small.fastq-miRNAs-transcripts_uni.fastq" />
+                <element name="reads-sample-small.fastq-piRNAs-genome" file="fastq_dir/reads-sample-small.fastq-piRNAs-genome.fastq" />
+                <element name="reads-sample-small.fastq-piRNAs-genome_uni" file="fastq_dir/reads-sample-small.fastq-piRNAs-genome_uni.fastq" />
+                <element name="reads-sample-small.fastq-piRNAs-TEs" file="fastq_dir/reads-sample-small.fastq-piRNAs-TEs.fastq" />
+                <element name="reads-sample-small.fastq-piRNAs-TEs_uni" file="fastq_dir/reads-sample-small.fastq-piRNAs-TEs_uni.fastq" />
+                <element name="reads-sample-small.fastq-piRNAs-transcripts" file="fastq_dir/reads-sample-small.fastq-piRNAs-transcripts.fastq" />
+                <element name="reads-sample-small.fastq-piRNAs-transcripts_uni" file="fastq_dir/reads-sample-small.fastq-piRNAs-transcripts_uni.fastq" />
+                <element name="reads-sample-small.fastq-siRNAs-genome" file="fastq_dir/reads-sample-small.fastq-siRNAs-genome.fastq" />
+                <element name="reads-sample-small.fastq-siRNAs-genome_uni" file="fastq_dir/reads-sample-small.fastq-siRNAs-genome_uni.fastq" />
+                <element name="reads-sample-small.fastq-siRNAs-TEs" file="fastq_dir/reads-sample-small.fastq-siRNAs-TEs.fastq" />
+                <element name="reads-sample-small.fastq-siRNAs-TEs_uni" file="fastq_dir/reads-sample-small.fastq-siRNAs-TEs_uni.fastq" />
+                <element name="reads-sample-small.fastq-siRNAs-transcripts" file="fastq_dir/reads-sample-small.fastq-siRNAs-transcripts.fastq" />
+                <element name="reads-sample-small.fastq-siRNAs-transcripts_uni" file="fastq_dir/reads-sample-small.fastq-siRNAs-transcripts_uni.fastq" />
+                <element name="reads-sample-small.fastq_unique_mappers" file="fastq_dir/reads-sample-small.fastq_unique_mappers.fastq" />
+                <element name="reads-sample-small.fastq_unmapped" file="fastq_dir/reads-sample-small.fastq_unmapped.fastq" />
+            </output_collection>
+        </test>
+    </tests>
+    <help>
  	**User manual**
  	"https://github.com/brassetjensen/sRNAPipe/blob/master/sRNAPipe_User_Manual.pdf"
-  </help>
-  <citations>
-    <citation type="doi">10.1038/nature12962</citation>
-    <citation type="doi">10.1038/nature11233</citation>
-    <citation type="doi">10.1186/gb4172</citation>
-    <citation type="doi">10.1038/nature04916</citation>
-    <citation type="doi">10.1016/j.cell.2007.01.043</citation>
-    <citation type="doi">10.1016/j.celrep.2015.02.062</citation>
-    <citation type="doi">10.1093/bioinformatics/btp324</citation>
-    <citation type="doi">10.1093/bioinformatics/btp352</citation>
-    <citation type="doi">10.1002/0471250953.bi1112s47</citation>
-    <citation type="doi">10.1093/bioinformatics/btu379</citation>
-    <citation type="doi">10.1002/embr.201337898</citation>
-    <citation type="doi">10.1038/ncomms13739</citation>
-    <citation type="doi">10.1093/nar/gkt310</citation>
-    <citation type="doi">10.1186/s13072-015-0041-5</citation>
-    <citation type="doi">10.1093/bioinformatics/btu647</citation>
-  </citations>
+    </help>
+    <citations>
+        <citation type="doi">10.1038/nature12962</citation>
+        <citation type="doi">10.1038/nature11233</citation>
+        <citation type="doi">10.1186/gb4172</citation>
+        <citation type="doi">10.1038/nature04916</citation>
+        <citation type="doi">10.1016/j.cell.2007.01.043</citation>
+        <citation type="doi">10.1016/j.celrep.2015.02.062</citation>
+        <citation type="doi">10.1093/bioinformatics/btp324</citation>
+        <citation type="doi">10.1093/bioinformatics/btp352</citation>
+        <citation type="doi">10.1002/0471250953.bi1112s47</citation>
+        <citation type="doi">10.1093/bioinformatics/btu379</citation>
+        <citation type="doi">10.1002/embr.201337898</citation>
+        <citation type="doi">10.1038/ncomms13739</citation>
+        <citation type="doi">10.1093/nar/gkt310</citation>
+        <citation type="doi">10.1186/s13072-015-0041-5</citation>
+        <citation type="doi">10.1093/bioinformatics/btu647</citation>
+    </citations>
 </tool>
