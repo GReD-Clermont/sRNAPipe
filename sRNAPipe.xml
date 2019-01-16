@@ -1,4 +1,4 @@
-<tool id="sRNAPipe" name="sRNAPipe" version="1.0">
+<tool id="sRNAPipe" name="sRNAPipe" version="1.1">
     <description>In-depth study of small RNA</description>
     <macros>
         <xml name="source">
@@ -38,6 +38,7 @@
         <requirement type="package" version="1.1_2">r-rcolorbrewer</requirement>
         <requirement type="package" version="2.2.1">r-ggplot2</requirement>
     </requirements>
+    <version_command>perl '$__tool_directory__/bin/sRNAPipe.pl'</version_command>
     <command detect_errors="aggressive"><![CDATA[
         perl '$__tool_directory__/bin/sRNAPipe.pl'
 

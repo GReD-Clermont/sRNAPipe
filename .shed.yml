@@ -2,7 +2,8 @@ name: srnapipe
 owner: brasset_jensen
 description: A pipeline for bioinformatic in-depth exploration of small RNAseq data.a
 homepage_url: https://github.com/GReD-Clermont/sRNAPipe/
-long_description: sRNAPipe takes as input a fastq file of small RNA-seq reads and performs successive steps of mapping to categories of genomic sequences: microRNAs, gene transcripts, small nuclear RNAs, ribosomal RNAs, transfer RNAs and transposable elements. It also provides individual mapping and counting for chromosomes, gene transcripts and transposable elements, normalization, small RNA length analysis and plotting of the data along genomic coordinates to build publication-quality graphs and figures. sRNAPipe evaluates 10-nucleotide 5’-overlaps of reads on opposite strands to test ping-pong amplification for putative PIWI-interacting RNAs, providing numbers of overlaps and corresponding z-scores.
+long_description: |
+        sRNAPipe takes as input a fastq file of small RNA-seq reads and performs successive steps of mapping to categories of genomic sequences: microRNAs, gene transcripts, small nuclear RNAs, ribosomal RNAs, transfer RNAs and transposable elements. It also provides individual mapping and counting for chromosomes, gene transcripts and transposable elements, normalization, small RNA length analysis and plotting of the data along genomic coordinates to build publication-quality graphs and figures. sRNAPipe evaluates 10-nucleotide 5’-overlaps of reads on opposite strands to test ping-pong amplification for putative PIWI-interacting RNAs, providing numbers of overlaps and corresponding z-scores.
 remote_repository_url: https://github.com/GReD-Clermont/sRNAPipe/
 type: unrestricted
 categories: [RNA]
