@@ -1,7 +1,7 @@
 <tool id="sRNAPipe" name="sRNAPipe" version="1.1">
     <description>In-depth study of small RNA</description>
     <macros>
-        <xml name="source">
+        <xml name="source" token_arg="Argument" token_build="Build argument">
             <conditional name="source">
                 <param name="source" type="select" label="Will you select the database from your history or use a built-in index?">
                     <option value="indexed">Use a built-in index</option>
