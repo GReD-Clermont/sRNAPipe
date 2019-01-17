@@ -11,6 +11,7 @@
 # to run the simplest way to get that installed is to just start with "java".
 # (which will still have a system python installed).
 language: python
+cache: pip
 
 python: 2.7
 
@@ -19,10 +20,9 @@ jobs:
     - stage: lint
       script: planemo l
     - stage: test
-      script: planemo test --no_cache_galaxy
+      script: travis_wait 60 planemo test --no_cache_galaxy
+    - stage: deploy
+      script: planemo shed_update --check_diff --shed_key_from_env SHED_KEY -t toolshed
 
 install:
   - pip install planemo
-
-script:
-  - planemo test --no_cache_galaxy
