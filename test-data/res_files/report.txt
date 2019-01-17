@@ -1,74 +1,74 @@
-Creating index for /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35115.dat_symlink.fa
-Creating index for /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35114.dat_symlink.fa
-Creating index for /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35112.dat_symlink.fa
-Creating index for /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35113.dat_symlink.fa
-Creating index for /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35116.dat_symlink.fa
-Creating index for /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35118.dat_symlink.fa
-Creating index for /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35111.dat_symlink.fa
+Creating index for /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35115.dat_symlink.fa
+Creating index for /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35114.dat_symlink.fa
+Creating index for /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35112.dat_symlink.fa
+Creating index for /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35113.dat_symlink.fa
+Creating index for /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35116.dat_symlink.fa
+Creating index for /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35118.dat_symlink.fa
+Creating index for /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35111.dat_symlink.fa
 -----------------------------
-bwa aln -t 8 -n 0 '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35115.dat_symlink.fa' '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/dataset_35117_18-29.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/genome/reads-sample-small.fastq_18-29.sam_aln.err' | bwa samse /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35115.dat_symlink.fa /dev/stdin '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/dataset_35117_18-29.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/genome/reads-sample-small.fastq_18-29.sam_samse.err' > '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/genome/reads-sample-small.fastq_18-29.sam'
-Parsing /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/genome/reads-sample-small.fastq_18-29.sam file
-	reads: 45570
-	mappers: 39040
-	unique mappers: 38991
+bwa aln -t 8 -n 0 '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35115.dat_symlink.fa' '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/dataset_35773_18-29.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/genome/reads-sample-small.fastq_18-29.sam_aln.err' | bwa samse /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35115.dat_symlink.fa /dev/stdin '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/dataset_35773_18-29.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/genome/reads-sample-small.fastq_18-29.sam_samse.err' > '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/genome/reads-sample-small.fastq_18-29.sam'
+Parsing /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/genome/reads-sample-small.fastq_18-29.sam file
+	reads: 4610
+	mappers: 3968
+	unique mappers: 3963
 -----------------------------
 ----------------------------
 Create subgroups:
 fastq_in: fastq_dir/reads-sample-small.fastq_all_mappers.fastq
-directory_out: /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/
+directory_out: /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/
 mismatches: 0
 mismatches TE: 3
 -----------------------------
-bwa aln -t 8 -n 0 '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35116.dat_symlink.fa' 'fastq_dir/reads-sample-small.fastq_all_mappers.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/miRNAs.sam_aln.err' | bwa samse /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35116.dat_symlink.fa /dev/stdin 'fastq_dir/reads-sample-small.fastq_all_mappers.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/miRNAs.sam_samse.err' > '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/miRNAs.sam'
-	reads: 39040
-	mappers: 63
-	unmapped: 38977
+bwa aln -t 8 -n 0 '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35116.dat_symlink.fa' 'fastq_dir/reads-sample-small.fastq_all_mappers.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/miRNAs.sam_aln.err' | bwa samse /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35116.dat_symlink.fa /dev/stdin 'fastq_dir/reads-sample-small.fastq_all_mappers.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/miRNAs.sam_samse.err' > '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/miRNAs.sam'
+	reads: 3968
+	mappers: 9
+	unmapped: 3959
 -----------------------------
 -----------------------------
-bwa aln -t 8 -n 0 '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35112.dat_symlink.fa' '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/miRNAs_rejected.fastq' 2> 'SLupcxhh_aln.err' | bwa samse /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35112.dat_symlink.fa /dev/stdin '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/miRNAs_rejected.fastq' 2> 'SLupcxhh_samse.err' > 'SLupcxhh'
-	reads: 38977
-	mappers: 8170
-	unmapped: 30807
+bwa aln -t 8 -n 0 '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35112.dat_symlink.fa' '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/miRNAs_rejected.fastq' 2> 'CPzbhiix_aln.err' | bwa samse /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35112.dat_symlink.fa /dev/stdin '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/miRNAs_rejected.fastq' 2> 'CPzbhiix_samse.err' > 'CPzbhiix'
+	reads: 3959
+	mappers: 850
+	unmapped: 3109
 -----------------------------
 -----------------------------
-bwa aln -t 8 -n 0 '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35114.dat_symlink.fa' '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/rRNAs_rejected.fastq' 2> 'LCcdxnpg_aln.err' | bwa samse /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35114.dat_symlink.fa /dev/stdin '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/rRNAs_rejected.fastq' 2> 'LCcdxnpg_samse.err' > 'LCcdxnpg'
-	reads: 30807
-	mappers: 196
-	unmapped: 30611
+bwa aln -t 8 -n 0 '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35114.dat_symlink.fa' '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/rRNAs_rejected.fastq' 2> 'ACwrrvou_aln.err' | bwa samse /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35114.dat_symlink.fa /dev/stdin '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/rRNAs_rejected.fastq' 2> 'ACwrrvou_samse.err' > 'ACwrrvou'
+	reads: 3109
+	mappers: 21
+	unmapped: 3088
 -----------------------------
 -----------------------------
-bwa aln -t 8 -n 0 '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35113.dat_symlink.fa' '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/rRNAs_rejected.fastq' 2> 'KAehfkzc_aln.err' | bwa samse /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35113.dat_symlink.fa /dev/stdin '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/rRNAs_rejected.fastq' 2> 'KAehfkzc_samse.err' > 'KAehfkzc'
-	reads: 30611
-	mappers: 81
-	unmapped: 30530
+bwa aln -t 8 -n 0 '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35113.dat_symlink.fa' '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/rRNAs_rejected.fastq' 2> 'AJabugdx_aln.err' | bwa samse /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35113.dat_symlink.fa /dev/stdin '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/rRNAs_rejected.fastq' 2> 'AJabugdx_samse.err' > 'AJabugdx'
+	reads: 3088
+	mappers: 8
+	unmapped: 3080
 -----------------------------
 -----------------------------
-bwa aln -t 8 -n 0 '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35118.dat_symlink.fa' '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/bonafide_reads.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/transcripts.sam_aln.err' | bwa samse /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35118.dat_symlink.fa /dev/stdin '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/bonafide_reads.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/transcripts.sam_samse.err' > '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/transcripts.sam'
-	reads: 30530
-	mappers: 2247
-	unmapped: 28283
+bwa aln -t 8 -n 0 '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35118.dat_symlink.fa' '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/bonafide_reads.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/transcripts.sam_aln.err' | bwa samse /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35118.dat_symlink.fa /dev/stdin '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/bonafide_reads.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/transcripts.sam_samse.err' > '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/transcripts.sam'
+	reads: 3080
+	mappers: 227
+	unmapped: 2853
 -----------------------------
 -----------------------------
-bwa aln -t 8 -n 3 '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35111.dat_symlink.fa' '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/rejected_transcripts.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/TEs.sam_aln.err' | bwa samse /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35111.dat_symlink.fa /dev/stdin '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/rejected_transcripts.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/TEs.sam_samse.err' > '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/TEs.sam'
-	reads: 28283
-	mappers: 26344
-	unmapped: 1939
+bwa aln -t 8 -n 3 '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35111.dat_symlink.fa' '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/rejected_transcripts.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/TEs.sam_aln.err' | bwa samse /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35111.dat_symlink.fa /dev/stdin '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/rejected_transcripts.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/TEs.sam_samse.err' > '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/TEs.sam'
+	reads: 2853
+	mappers: 2678
+	unmapped: 175
 -----------------------------
-** Subgroup fork /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/bonafide_reads.fastq started, pid: 14243
+** Subgroup fork /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/bonafide_reads.fastq started, pid: 22278
 -----------------------------
-bwa aln -t 8 -n 3 '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35111.dat_symlink.fa' '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/miRNAs.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/miRNAs/miRNAs-TEs.sam_aln.err' | bwa samse /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35111.dat_symlink.fa /dev/stdin '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/miRNAs.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/miRNAs/miRNAs-TEs.sam_samse.err' > '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/miRNAs/miRNAs-TEs.sam'
+bwa aln -t 8 -n 3 '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35111.dat_symlink.fa' '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/miRNAs.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/miRNAs/miRNAs-TEs.sam_aln.err' | bwa samse /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35111.dat_symlink.fa /dev/stdin '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/miRNAs.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/miRNAs/miRNAs-TEs.sam_samse.err' > '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/miRNAs/miRNAs-TEs.sam'
 -----------------------------
-bwa aln -t 8 -n 0 '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35118.dat_symlink.fa' '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/miRNAs.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/miRNAs/miRNAs-transcripts.sam_aln.err' | bwa samse /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35118.dat_symlink.fa /dev/stdin '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/miRNAs.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/miRNAs/miRNAs-transcripts.sam_samse.err' > '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/miRNAs/miRNAs-transcripts.sam'
+bwa aln -t 8 -n 0 '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35118.dat_symlink.fa' '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/miRNAs.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/miRNAs/miRNAs-transcripts.sam_aln.err' | bwa samse /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35118.dat_symlink.fa /dev/stdin '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/miRNAs.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/miRNAs/miRNAs-transcripts.sam_samse.err' > '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/miRNAs/miRNAs-transcripts.sam'
 -----------------------------
-bwa aln -t 8 -n 0 '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35115.dat_symlink.fa' '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/miRNAs.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/miRNAs/miRNAs-genome.sam_aln.err' | bwa samse /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/dataset_35115.dat_symlink.fa /dev/stdin '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/miRNAs.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/miRNAs/miRNAs-genome.sam_samse.err' > '/data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/miRNAs/miRNAs-genome.sam'
-** Subgroup fork /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/miRNAs.fastq started, pid: 14244
-** Subgroup fork /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/miRNAs.fastq just finished with PID 14244 and exit code: 0
-** Subgroup fork /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/siRNAs.fastq started, pid: 14405
-** Subgroup fork /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/bonafide_reads.fastq just finished with PID 14243 and exit code: 0
-** Subgroup fork /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/piRNAs.fastq started, pid: 14463
-** Subgroup fork /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/siRNAs.fastq just finished with PID 14405 and exit code: 0
-** Subgroup fork /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/piRNAs.fastq just finished with PID 14463 and exit code: 0
-ping_pong_partners /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups//piRNAs/TEs.sam /data/galaxy/galaxy-server/database/jobs_directory/015/15696/dataset_35119_files/reads-sample-small.fastq/subgroups/PPPartners/
-Fastq fork : /data/galaxy/galaxy-server/database/files/035/dataset_35117.dat started, pid: 14070
-Fastq fork /data/galaxy/galaxy-server/database/files/035/dataset_35117.dat just finished with PID 14070 and exit code: 0
+bwa aln -t 8 -n 0 '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35115.dat_symlink.fa' '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/miRNAs.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/miRNAs/miRNAs-genome.sam_aln.err' | bwa samse /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/dataset_35115.dat_symlink.fa /dev/stdin '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/miRNAs.fastq' 2> '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/miRNAs/miRNAs-genome.sam_samse.err' > '/data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/miRNAs/miRNAs-genome.sam'
+** Subgroup fork /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/miRNAs.fastq started, pid: 22279
+** Subgroup fork /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/miRNAs.fastq just finished with PID 22279 and exit code: 0
+** Subgroup fork /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/siRNAs.fastq started, pid: 22405
+** Subgroup fork /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/bonafide_reads.fastq just finished with PID 22278 and exit code: 0
+** Subgroup fork /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/piRNAs.fastq started, pid: 22464
+** Subgroup fork /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/siRNAs.fastq just finished with PID 22405 and exit code: 0
+** Subgroup fork /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/piRNAs.fastq just finished with PID 22464 and exit code: 0
+ping_pong_partners /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups//piRNAs/TEs.sam /data/galaxy/galaxy-server/database/jobs_directory/015/15799/dataset_35827_files/reads-sample-small.fastq/subgroups/PPPartners/
+Fastq fork : /data/galaxy/galaxy-server/database/files/035/dataset_35773.dat started, pid: 22106
+Fastq fork /data/galaxy/galaxy-server/database/files/035/dataset_35773.dat just finished with PID 22106 and exit code: 0
 Job done!
