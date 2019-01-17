@@ -12,6 +12,7 @@
 # (which will still have a system python installed).
 language: python
 cache: pip
+dist: xenial
 
 python: 2.7
 
