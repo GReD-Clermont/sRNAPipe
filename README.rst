@@ -1,3 +1,5 @@
+.. image:: https://travis-ci.org/GReD-Clermont/sRNAPipe.svg?branch=master
+    :target: https://travis-ci.org/GReD-Clermont/sRNAPipe
 
 sRNAPipe
 ========
