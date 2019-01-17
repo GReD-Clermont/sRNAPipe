@@ -21,7 +21,7 @@ jobs:
     - stage: lint
       script: planemo l
     - stage: test
-      script: travis_wait 60 planemo test --no_cache_galaxy
+      script: planemo test --install_galaxy --no_cache_galaxy
     - stage: deploy
       script: planemo shed_update --check_diff --shed_key_from_env SHED_KEY -t toolshed
 
