@@ -25,14 +25,12 @@
         <requirement type="package" version="0.7.12">bwa</requirement>
         <requirement type="package" version="2.24">bedtools</requirement>
         <requirement type="package" version="1.5">samtools</requirement>
-        <requirement type="package" version="3.3.2">r-base</requirement>
-        <requirement type="package" version="5.22.0">perl</requirement>
         <requirement type="package" version="2.50">perl-getopt-long</requirement>
         <requirement type="package" version="1.17">perl-parallel-forkmanager</requirement>
-        <requirement type="package" version="0.34" >perl-statistics-r</requirement>
+        <requirement type="package" version="0.34">perl-statistics-r</requirement>
         <requirement type="package" version="0.30">perl-string-random</requirement>
-        <requirement type="package" version="0.38" >perl-file-copy-recursive</requirement>
-        <requirement type="package" version="0.1" >perl-math-cdf</requirement>
+        <requirement type="package" version="0.38">perl-file-copy-recursive</requirement>
+        <requirement type="package" version="0.1">perl-math-cdf</requirement>
         <requirement type="package" version="3.6">r-plotrix</requirement>
         <requirement type="package" version="1.14.0">bioconductor-sushi</requirement>
         <requirement type="package" version="1.1_2">r-rcolorbrewer</requirement>
