@@ -1,11 +1,11 @@
-package resize;
+package sRNAPipe::resize;
 
 use strict;
 use warnings;
 
 use FindBin;
-use lib $FindBin::Bin;
-use Rcall qw ( histogram );
+use lib "$FindBin::Bin/../lib";
+use sRNAPipe::Rcall qw ( histogram );
 
 use Exporter;
 our @ISA = qw( Exporter );

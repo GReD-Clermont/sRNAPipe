@@ -1,4 +1,4 @@
-package align;
+package sRNAPipe::align;
 
 use strict;
 use warnings;
@@ -6,8 +6,8 @@ use File::Basename;
 use String::Random;
 
 use FindBin;
-use lib $FindBin::Bin;
-use Rcall qw ( histogram );
+use lib "$FindBin::Bin/../lib";
+use sRNAPipe::Rcall qw ( histogram );
 
 use Exporter;
 our @ISA         = qw( Exporter );

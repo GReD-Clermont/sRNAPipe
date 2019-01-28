@@ -1,4 +1,4 @@
-package Rcall;
+package sRNAPipe::Rcall;
 
 use strict;
 use warnings;

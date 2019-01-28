@@ -15,7 +15,7 @@ sRNAPipe  a computational pipeline (sRNAPipe: small RNA pipeline) based on the G
 Prerequisites
 =============
 
-1. Unix system with A Galaxy server (release july 2014 or later installed)
+1. Unix system with A Galaxy server (release 16.01 or later installed)
 
 2. Some tools are used by sRNAPipe and must be installed and added to the Path.
 

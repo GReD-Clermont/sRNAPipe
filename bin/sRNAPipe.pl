@@ -1,20 +1,21 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
+package main;
 use strict;
 use warnings;
 use Getopt::Long;
 use Parallel::ForkManager;
 use File::Basename;
-use File::Copy::Recursive qw( dircopy );
+use File::Copy;
 use POSIX;
 use FindBin;
-use lib $FindBin::Bin;
-use resize qw ( size_distribution );
-use subgroups qw (subgroups );
-use ppp qw ( ping_pong_partners );
-use Rcall qw (pie_chart bg_to_png );
-use align qw ( to_build get_unique sam_count sam_count_mis sam_sorted_bam rpms_rpkm rpms_rpkm_te BWA_call get_fastq_seq extract_sam sam_to_bam_bg );
-use html qw ( main_page details_pages menu_page ppp_page );
-use File::Copy;
+use lib "$FindBin::Bin/../lib";
+use sRNAPipe;
+use sRNAPipe::resize qw ( size_distribution );
+use sRNAPipe::subgroups qw ( subgroups );
+use sRNAPipe::ppp qw ( ping_pong_partners );
+use sRNAPipe::Rcall qw (pie_chart bg_to_png );
+use sRNAPipe::align qw ( to_build get_unique sam_count sam_count_mis sam_sorted_bam rpms_rpkm rpms_rpkm_te BWA_call get_fastq_seq extract_sam sam_to_bam_bg );
+use sRNAPipe::html qw ( main_page details_pages menu_page ppp_page copy_css copy_js );
 
 if(@ARGV) {
     my ( @fastq, @fastq_n, $dir, $min, $max, $mis, $misTE, $help, $Pcheck, $mapnumf, $html_out);
@@ -62,8 +63,8 @@ if(@ARGV) {
     mkdir $dir; mkdir $fq_collection;
     $dir = $dir.'/' unless $dir =~ /\/$/;
     mkdir $dir.'/css';mkdir $dir.'/js';
-    dircopy( $FindBin::Bin.'/css', $dir.'/css' );
-    dircopy( $FindBin::Bin.'/js', $dir.'/js' );
+    copy_css( $dir );
+    copy_js( $dir );
     
     my $file = $dir.'report.txt';
     open my $report, '>', $file or die "Cannot open $file $!\n";
@@ -273,5 +274,34 @@ if(@ARGV) {
     print $report "Job done!\n";
     close $report;
 } else {
-    print "sRNAPipe v1.1\n";
+    print "sRNAPipe version $sRNAPipe::VERSION
+
+Usage:
+
+sRNAPipe --fastq <fastq file 1> --fastq_n <name 1> [--fastq <fastq file 2> --fastq_n <name 2> --fastq <fastq file 3> -- fastq_n <name 3> ...] --ref <reference genome> [--build_index] --transcripts <transcripts> [--build_transcripts] --TE <transposable elements> [--build_TE] --miRNAs <miRNAs> [--build_miRNAs] --snRNAs <snRNAs> [--build_snRNAs] --rRNAs <rRNAs> [--build_rRNAs] --tRNAs <tRNAs> [--buid_tRNAs] [options]
+
+Arguments:
+--fastq <fastq file>\t\tFastq file to process
+--fastq_n <name>\t\tName of the content to process
+--ref <reference>\t\tFasta file containing the reference genome
+--transcripts <transcripts>\tFasta file containing the transcripts
+--TE <TE>\t\t\tFasta file containing the transposable elements
+--miRNAs <miRNAs>\t\tFasta file containing the miRNAs
+--snRNAs <snRNAs>\t\tFasta file containing the snRNAs
+--rRNAs <rRNAs>\t\t\tFasta file containing the rRNAs
+--tRNAs <tRNAS>\t\t\tFasta file containing the tRNAs
+
+For any fasta file, if a bwa index is not provided, you should build it through the corresponding '--build_[element]' argument
+
+Options:
+--min <INT>\t\t\tMinimum read size (default: 18)
+--max <INT>\t\t\tMaximum read size (default: 29)
+--si_min <INT>\t\t\tLower bound of siRNA range (default: 21)
+--si_max <INT>\t\t\tHigher bound of siRNA range (default: 21)
+--pi_min <INT>\t\t\tLower bound of piRNA range (default: 23)
+--pi_max <INT>\t\t\tHigher bound of piRNA range (default: 29)
+--mis <INT>\t\t\tMaximal genome mismatches (default: 0)
+--misTE <INT>\t\t\tMaximal TE mismatches (default: 3)
+--PPPon <true|false>\t\tPing-pong partners (default: true)
+";
 }

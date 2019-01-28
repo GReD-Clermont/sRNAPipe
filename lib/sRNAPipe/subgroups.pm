@@ -1,4 +1,4 @@
-package subgroups;
+package sRNAPipe::subgroups;
 
 use strict;
 use warnings;
@@ -9,8 +9,8 @@ our @EXPORT_OK = qw( &subgroups );
 use POSIX;
 use File::Copy;
 use FindBin;
-use lib $FindBin::Bin;
-use align qw ( get_hash_alignment );
+use lib "$FindBin::Bin/../lib";
+use sRNAPipe::align qw ( get_hash_alignment );
 
 sub subgroups
 {

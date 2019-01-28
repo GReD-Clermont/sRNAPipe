@@ -1,12 +1,13 @@
-package html;
+package sRNAPipe::html;
 
 use strict;
 use warnings;
 use File::Basename;
+use File::Copy::Recursive qw( dircopy );
 
 use Exporter;
 our @ISA = qw( Exporter );
-our @EXPORT_OK = qw( &main_page &details_pages &menu_page &ppp_page );
+our @EXPORT_OK = qw( &main_page &details_pages &menu_page &ppp_page &copy_css &copy_js );
 
 sub main_page
 {
@@ -905,6 +906,21 @@ sub mapnum
     print $du_TE "$k\t$hashRef->[0]\t$hashRef->[1]\t$v\n";
   }
   close $du_TE;
+}
+
+sub copy_css
+{
+  my $dir = shift;
+  my $path = dirname(__FILE__);
+  dircopy( $path.'/css', $dir.'/css' );
+}
+
+
+sub copy_js
+{
+  my $dir = shift;
+  my $path = dirname(__FILE__);
+  dircopy( $path.'/js', $dir.'/js' );
 }
 
 1;
