@@ -22,19 +22,21 @@
         </xml>
     </macros>
     <requirements>
-        <requirement type="package" version="0.7.12">bwa</requirement>
-        <requirement type="package" version="2.24">bedtools</requirement>
-        <requirement type="package" version="1.5">samtools</requirement>
-        <requirement type="package" version="2.50">perl-getopt-long</requirement>
-        <requirement type="package" version="1.17">perl-parallel-forkmanager</requirement>
-        <requirement type="package" version="0.34">perl-statistics-r</requirement>
-        <requirement type="package" version="0.30">perl-string-random</requirement>
-        <requirement type="package" version="0.38">perl-file-copy-recursive</requirement>
-        <requirement type="package" version="0.1">perl-math-cdf</requirement>
-        <requirement type="package" version="3.6">r-plotrix</requirement>
+        <requirement type="package" version="1.9">samtools</requirement>
+        <requirement type="package">bwa</requirement>
+        <requirement type="package">bedtools</requirement>
+        <requirement type="package">perl</requirement>
+        <requirement type="package">perl-getopt-long</requirement>
+        <requirement type="package">perl-parallel-forkmanager</requirement>
+        <requirement type="package">perl-statistics-r</requirement>
+        <requirement type="package">perl-string-random</requirement>
+        <requirement type="package">perl-file-copy-recursive</requirement>
+        <requirement type="package">perl-math-cdf</requirement>
+        <requirement type="package">r-base</requirement>
+        <requirement type="package">r-plotrix</requirement>
+        <requirement type="package">r-rcolorbrewer</requirement>
+        <requirement type="package">r-ggplot2</requirement>
         <requirement type="package" version="1.14.0">bioconductor-sushi</requirement>
-        <requirement type="package" version="1.1_2">r-rcolorbrewer</requirement>
-        <requirement type="package" version="2.2.1">r-ggplot2</requirement>
     </requirements>
     <version_command>perl '$__tool_directory__/bin/sRNAPipe.pl' | grep 'version' | grep "version" | cut -d ' ' -f 3</version_command>
     <command detect_errors="aggressive"><![CDATA[
