@@ -278,7 +278,7 @@ if(@ARGV) {
 
 Usage:
 
-sRNAPipe --fastq <fastq file 1> --fastq_n <name 1> [--fastq <fastq file 2> --fastq_n <name 2> --fastq <fastq file 3> -- fastq_n <name 3> ...] --ref <reference genome> [--build_index] --transcripts <transcripts> [--build_transcripts] --TE <transposable elements> [--build_TE] --miRNAs <miRNAs> [--build_miRNAs] --snRNAs <snRNAs> [--build_snRNAs] --rRNAs <rRNAs> [--build_rRNAs] --tRNAs <tRNAs> [--buid_tRNAs] [options]
+sRNAPipe.pl --fastq <fastq file 1> --fastq_n <name 1> [--fastq <fastq file 2> --fastq_n <name 2> --fastq <fastq file 3> -- fastq_n <name 3> ...] --ref <reference genome> [--build_index] --transcripts <transcripts> [--build_transcripts] --TE <transposable elements> [--build_TE] --miRNAs <miRNAs> [--build_miRNAs] --snRNAs <snRNAs> [--build_snRNAs] --rRNAs <rRNAs> [--build_rRNAs] --tRNAs <tRNAs> [--buid_tRNAs] [options]
 
 Arguments:
 --fastq <fastq file>\t\tFastq file to process

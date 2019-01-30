@@ -252,20 +252,6 @@
  	"https://github.com/brassetjensen/sRNAPipe/blob/master/sRNAPipe_User_Manual.pdf"
     </help>
     <citations>
-        <citation type="doi">10.1038/nature12962</citation>
-        <citation type="doi">10.1038/nature11233</citation>
-        <citation type="doi">10.1186/gb4172</citation>
-        <citation type="doi">10.1038/nature04916</citation>
-        <citation type="doi">10.1016/j.cell.2007.01.043</citation>
-        <citation type="doi">10.1016/j.celrep.2015.02.062</citation>
-        <citation type="doi">10.1093/bioinformatics/btp324</citation>
-        <citation type="doi">10.1093/bioinformatics/btp352</citation>
-        <citation type="doi">10.1002/0471250953.bi1112s47</citation>
-        <citation type="doi">10.1093/bioinformatics/btu379</citation>
-        <citation type="doi">10.1002/embr.201337898</citation>
-        <citation type="doi">10.1038/ncomms13739</citation>
-        <citation type="doi">10.1093/nar/gkt310</citation>
-        <citation type="doi">10.1186/s13072-015-0041-5</citation>
-        <citation type="doi">10.1093/bioinformatics/btu647</citation>
+        <citation type="doi">10.1186/s13100-018-0130-7</citation>
     </citations>
 </tool>
