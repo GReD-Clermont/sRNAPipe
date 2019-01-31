@@ -22,25 +22,11 @@
         </xml>
     </macros>
     <requirements>
-        <requirement type="package" version="1.9">samtools</requirement>
-        <requirement type="package">bwa</requirement>
-        <requirement type="package">bedtools</requirement>
-        <requirement type="package">perl</requirement>
-        <requirement type="package">perl-getopt-long</requirement>
-        <requirement type="package">perl-parallel-forkmanager</requirement>
-        <requirement type="package">perl-statistics-r</requirement>
-        <requirement type="package">perl-string-random</requirement>
-        <requirement type="package">perl-file-copy-recursive</requirement>
-        <requirement type="package">perl-math-cdf</requirement>
-        <requirement type="package">r-base</requirement>
-        <requirement type="package">r-plotrix</requirement>
-        <requirement type="package">r-rcolorbrewer</requirement>
-        <requirement type="package">r-ggplot2</requirement>
-        <requirement type="package" version="1.14.0">bioconductor-sushi</requirement>
+        <requirement type="package" version="1.1">srnapipe</requirement>
     </requirements>
-    <version_command>perl '$__tool_directory__/bin/sRNAPipe.pl' | grep 'version' | grep "version" | cut -d ' ' -f 3</version_command>
+    <version_command>srnapipe | grep 'version' | grep "version" | cut -d ' ' -f 3</version_command>
     <command detect_errors="aggressive"><![CDATA[
-        perl '$__tool_directory__/bin/sRNAPipe.pl'
+        srnapipe
 
         --fastq '${first_input}'
         --fastq_n '${first_input.name}'

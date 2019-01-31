@@ -21,9 +21,11 @@ jobs:
     - stage: lint
       script: planemo l
     - stage: test
-      script: travis_wait 60 planemo test --install_galaxy --no_cache_galaxy
+      script: planemo test --install_galaxy --no_cache_galaxy
     - stage: deploy
       script: planemo shed_update --shed_key_from_env SHED_KEY -t toolshed
 
 install:
   - pip install planemo
+  - planemo conda_init
+  - planemo conda_install .
