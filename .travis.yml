@@ -27,5 +27,3 @@ jobs:
 
 install:
   - pip install planemo
-  - planemo conda_init
-  - planemo conda_install .
