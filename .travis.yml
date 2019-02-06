@@ -1,29 +1,52 @@
-
-# This is a special configuration file to run tests on Travis-CI via
-# GitHub notifications when changes are committed.
-#
-# See http://travis-ci.org/ for details
-
-# This file is heavily inspired by Peter Cock's efforts. See more details at
-# http://blastedbio.blogspot.com/2013/09/using-travis-ci-for-testing-galaxy-tools.html
-
-# We need Python 2.6 or 2.7 to run Galaxy but many Galaxy tools also need Java
-# to run the simplest way to get that installed is to just start with "java".
-# (which will still have a system python installed).
+# 'sudo required' will give 7,5 GB memory, but has slower startup times, as we start a VM instead of a Container
+sudo: required
 language: python
 cache: pip
-dist: xenial
 
 python: 2.7
 
 jobs:
   include:
     - stage: lint
-      script: planemo l
+      addons: {}
+      before_install: skip
+      install:
+        - pip install flake8 flake8-import-order planemo
+        - planemo --version
+      script:
+        - set -e
+        - planemo shed_lint --tools --ensure_metadata --urls --report_level warn --fail_level error --recursive .
+
     - stage: test
-      script: planemo test --install_galaxy --no_cache_galaxy
+      script:
+        - set -e
+        - planemo test --conda_dependency_resolution --conda_auto_install --conda_channels iuc,conda-forge,bioconda,defaults --galaxy_branch "$GALAXY_RELEASE" --galaxy_source "$GALAXY_REPO" .
+
     - stage: deploy
-      script: planemo shed_update --shed_key_from_env SHED_KEY -t toolshed
+      if: (type = push) AND (branch = master)
+      addons: {}
+      before_install: skip
+      install:
+        - pip install planemo
+        - planemo --version
+      script:
+        - set -e
+        - |
+          if [ "$TRAVIS_PULL_REQUEST" == "false" -a "$TRAVIS_BRANCH" == "master" ]; then
+              planemo shed_update --shed_target toolshed --shed_key_from_env SHED_KEY --force_repository_creation .
+          fi
+
+before_install:
+  - export GALAXY_REPO=https://github.com/galaxyproject/galaxy
+  - export GALAXY_RELEASE=release_18.05
+  - export PLANEMO_CONDA_PREFIX="$HOME/conda"
+  - unset JAVA_HOME
 
 install:
   - pip install planemo
+  - planemo conda_init
+  - export PATH="$PLANEMO_CONDA_PREFIX/bin:$PATH"
+  - conda install -y -c conda-forge conda=4.3.34 
+  - planemo --version
+  - conda --version
+
