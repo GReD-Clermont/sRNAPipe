@@ -1,14 +1,14 @@
 <tool id="sRNAPipe" name="sRNAPipe" version="1.1">
     <description>In-depth study of small RNA</description>
     <macros>
-        <xml name="source" token_arg="Argument" token_build="Build argument">
+        <xml name="source" token_arg="Argument" token_build="Build argument" token_ref="">
             <conditional name="source">
-                <param name="source" type="select" label="Will you select the database from your history or use a built-in index?">
+                <param name="source" type="select" label="Will you select the reference database from your history or use a built-in index?">
                     <option value="indexed">Use a built-in index</option>
                     <option value="history">Use one from the history</option>
                 </param>
                 <when value="indexed">
-                    <param name="indices" argument="@ARG@" type="select" label="Select a reference genome" help="Also use @BUILD@">
+                    <param name="indices" argument="@ARG@" type="select" label="Select @REF@">
                         <options from_data_table="bwa_indexes">
                             <filter type="sort_by" column="2" />
                             <validator type="no_options" message="No indexes are available" />
@@ -16,8 +16,20 @@
                     </param>
                 </when>
                 <when value="history">
-                    <param name="file" argument="@ARG@" type="data" format="fasta" label="Select a reference from history" />
+                    <param name="file" argument="@ARG@" type="data" format="fasta" label="Select @REF@ from history"  help="We will also use @BUILD@"/>
                 </when>
+            </conditional>
+        </xml>
+        <xml name="conditional_source" token_arg="Argument" token_build="Build argument" token_ref="" token_name="">
+            <conditional name="@NAME@">
+                <param name="use_ref" type="select" label="Use @REF@?">
+                    <option value="true">Yes</option>
+                    <option value="false" selected="true">No</option>
+                </param>
+                <when value="true">
+                    <expand macro="source" arg="@ARG@" build="@BUILD@" ref="@REF@"/>
+                </when>
+                <when value="false"/>
             </conditional>
         </xml>
     </macros>
@@ -26,136 +38,164 @@
     </requirements>
     <version_command>srnapipe | grep 'version' | grep "version" | cut -d ' ' -f 3</version_command>
     <command detect_errors="aggressive"><![CDATA[
-        srnapipe
-
-        --fastq '${first_input}'
-        --fastq_n '${first_input.name}'
-        #for $input_file in $input_files:
-        --fastq '${input_file.additional_input}'
-        --fastq_n '${input_file.additional_input.name}'
+srnapipe
+    #if str($inputs.custom) == 'true'
+        #for $x in $inputs.inputs
+            --fastq '$x.fastq'
+            --fastq_n '$x.fastq_n'
         #end for
+    #else
+        #for $x in $inputs.fastq
+            --fastq '$x'
+            --fastq_n '$x.element_identifier'
+        #end for
+    #end if
+    --min $min
+    --max $max
 
-        #if $genome.source.source == "history":
-        --ref '${genome.source.file}'
-        --build_index
-        #else:
-        --ref '${genome.source.indices.fields.path}'
+    #if $genome.source.source == "history"
+    --ref '$genome.source.file'
+    --build_index
+    #else
+    --ref '$genome.source.indices.fields.path'
+    #end if
+    --mis $genome.mis
+
+    #if $transcripts.source.source == "history"
+    --transcripts '$transcripts.source.file'
+    --build_transcripts
+    #else
+    --transcripts '$transcripts.source.indices.fields.path'
+    #end if
+
+    #if $te.source.source == "history"
+    --TE '$te.source.file'
+    --build_TE
+    #else
+    --TE '$te.source.indices.fields.path'
+    #end if
+    --misTE $te.misTE
+
+    #if $mirnas.source.source == "history"
+    --miRNAs '$mirnas.source.file'
+    --build_miRNAs
+    #else:
+    --miRNAs '$mirnas.source.indices.fields.path'
+    #end if
+
+    #if str($snrnas.snrnas.use_ref) == 'true'
+        #if str($snrnas.snrnas.source.source) == "history"
+    --snRNAs '$snrnas.snrnas.source.file'
+    --build_snRNAs
+        #else
+    --snRNAs '$snrnas.snrnas.source.indices.fields.path'
         #end if
+    #else
+    --snRNAs "None"
+    #end if
 
-        #if $tRNAs.source.source == "history":
-        --tRNAs '${tRNAs.source.file}'
-        --build_tRNAs
-        #elif $tRNAs.source.source == "none":
-        --tRNAs "None"
-        #else:
-        --tRNAs '${tRNAs.source.indices.fields.path}'
+    #if str($rrnas.rrnas.use_ref) == 'true'
+        #if str($rrnas.rrnas.source.source) == "history"
+    --rRNAs '$rrnas.rrnas.source.file'
+    --build_rRNAs
+        #else
+    --rRNAs '$rrnas.rrnas.source.indices.fields.path'
         #end if
+    #else
+    --rRNAs "None"
+    #end if
 
-        #if $snRNAs.source.source == "history":
-        --snRNAs '${snRNAs.source.file}'
-        --build_snRNAs
-        #elif $snRNAs.source.source == "none":
-        --snRNAs "None"
-        #else:
-        --snRNAs '${snRNAs.source.indices.fields.path}'
+    #if str($trnas.trnas.use_ref) == 'true'
+        #if str($trnas.trnas.source.source) == "history"
+    --tRNAs '$trnas.trnas.source.file'
+    --build_tRNAs
+        #else
+    --tRNAs '$trnas.trnas.source.indices.fields.path'
         #end if
+    #else
+    --tRNAs "None"
+    #end if
 
-        #if $rRNAs.source.source == "history":
-        --rRNAs '${rRNAs.source.file}'
-        --build_rRNAs
-        #elif $rRNAs.source.source == "none":
-        --rRNAs "None"
-        #else:
-        --rRNAs '${rRNAs.source.indices.fields.path}'
-        #end if
-
-        #if $miRNAs.source.source == "history":
-        --miRNAs '${miRNAs.source.file}'
-        --build_miRNAs
-        #else:
-        --miRNAs '${miRNAs.source.indices.fields.path}'
-        #end if
-
-        #if $transcripts.source.source == "history":
-        --transcripts '${transcripts.source.file}'
-        --build_transcripts
-        #else:
-        --transcripts '${transcripts.source.indices.fields.path}'
-        #end if
-
-        #if $TE.source.source == "history":
-        --TE '${TE.source.file}'
-        --build_TE
-        #else:
-        --TE '${TE.source.indices.fields.path}'
-        #end if
-
-        --si_min $si_min
-        --si_max $si_max
-        --pi_min $pi_min
-        --pi_max $pi_max
-        --min $min
-        --max $max
-
-        --mis $mis
-        --misTE $misTE
-        --dir $html_out.files_path
-        --html $html_out
-        --PPPon $PPPon
+    --si_min $sirna.si_min
+    --si_max $sirna.si_max
+    --pi_min $pirna.pi_min
+    --pi_max $pirna.pi_max
+    --dir $html_out.files_path
+    --html $html_out
+    --PPPon $PPPon
         ]]>
     </command>
-
     <inputs>
-        <param name="first_input" argument="--fastq" type="data" format="fastqsanger" label="fastqsanger (Q33)" help="Also set a name with --fastq_n"/>
-        <repeat name="input_files" title="Additional Fastq Files">
-            <param name="additional_input" argument="--fastq" type="data" format="fastqsanger" label="fastqsanger (Q33)" help="Also set a name after each fastq with --fastq_n"/>
-        </repeat>
+        <conditional name="inputs">
+            <param name="custom" type="select" label="Use custom name for the input sequence files?">
+                <option value="true">Yes</option>
+                <option value="false" selected="true">No: the names will be extracted automatically</option>
+            </param>
+            <when value="true">
+                <repeat name="inputs" title="Input sequences" min="1">
+                    <param argument="--fastq" type="data" format="fastqsanger" label="Input sequences"/>
+                    <param argument="--fastq_n" type="text" value="" label="Label for the input sequences"/>
+                </repeat>
+            </when>
+            <when value="false">
+                <param argument="--fastq" type="data" format="fastqsanger" multiple="true" label="Input sequences" help="Also set a name with --fastq_n"/>
+            </when>
+        </conditional>
+        <param argument="--min" type="integer" value="18" label="Minimum read size"/>
+        <param argument="--max" type="integer" value="29" label="Maximum read size"/>
         <section name="genome" title="Reference genome" expanded="true">
-            <expand macro="source" arg="--ref" build="--build_index"/>
+            <expand macro="source" arg="--ref" build="--build_index" ref="a reference genome"/>
+            <param argument="--mis" type="integer" value="0" label="Maximal genome mismatches"/>
         </section>
         <section name="transcripts" title="Transcripts" expanded="true">
-            <expand macro="source" arg="--transcripts" build="--build_transcripts"/>
+            <expand macro="source" arg="--transcripts" build="--build_transcripts" ref="reference transcript sequences"/>
         </section>
-        <section name="TE" title="Transposable Elements" expanded="true">
-            <expand macro="source" arg="--TE" build="--build_TE"/>
+        <section name="te" title="Transposable Elements" expanded="true">
+            <expand macro="source" arg="--TE" build="--build_TE" ref="reference TE sequences"/>
+            <param argument="--misTE" type="integer" value="3" label="maximal TE mismatches"/>
         </section>
-        <section name="miRNAs" title="miRNAs" expanded="true">
-            <expand macro="source" arg="--miRNAs" build="--build_miRNAs"/>
+        <section name="mirnas" title="miRNAs" expanded="true">
+            <expand macro="source" arg="--miRNAs" build="--build_miRNAs" ref="reference miRNAs sequences"/>
         </section>
-        <section name="snRNAs" title="snRNAs" expanded="true">
-            <expand macro="source" arg="--snRNAs" build="--build_snRNAs"/>
+        <section name="snrnas" title="snRNAs" expanded="true">
+            <expand macro="conditional_source" name="snrnas" arg="--snRNAs" build="--build_snRNAs" ref="reference snRNAs sequences"/>
         </section>
-        <section name="rRNAs" title="rRNAs" expanded="true">
-            <expand macro="source" arg="--rRNAs" build="--build_rRNAs"/>
+        <section name="rrnas" title="rRNAs" expanded="true">
+            <expand macro="conditional_source" name="rrnas" arg="--rRNAs" build="--build_rRNAs" ref="reference rRNAs sequences"/>
         </section>
-        <section name="tRNAs" title="tRNAs" expanded="true">
-            <expand macro="source" arg="--tRNAs" build="--build_tRNAs"/>
+        <section name="trnas" title="tRNAs" expanded="true">
+            <expand macro="conditional_source" name="trnas" arg="--tRNAs" build="--build_tRNAs" ref="reference tRNAs sequences"/>
         </section>
-
-        <param name="min" argument="--min" type="integer" value="18" label="minimum read size"/>
-        <param name="max" argument="--max" type="integer" value="29" label="maximum read size"/>
-        <param name="si_min" argument="--si_min" type="integer" value="21" label="lower bound of siRNA range"/>
-        <param name="si_max" argument="--si_max" type="integer" value="21" label="higher bound of siRNA range"/>
-        <param name="pi_min" argument="--pi_min" type="integer" value="23" label="lower bound of piRNA range"/>
-        <param name="pi_max" argument="--pi_max" type="integer" value="29" label="higher bound of piRNA range"/>
-        <param name="mis" argument="--mis" type="integer" value="0" label="maximal genome mismatches"/>
-        <param name="misTE" argument="--misTE" type="integer" value="3" label="maximal TE mismatches"/>
-        <param name="PPPon" argument="--PPPon" type="boolean" checked="true" label="PPPartners"/>
+        <section name="sirna" title="siRNA" expanded="true">
+            <param argument="--si_min" type="integer" value="21" label="Lower bound for siRNA range"/>
+            <param argument="--si_max" type="integer" value="21" label="Higher bound of siRNA range"/>
+        </section>
+        <section name="pirna" title="piRNA" expanded="true">
+            <param argument="--pi_min" type="integer" value="23" label="lower bound of piRNA range"/>
+            <param argument="--pi_max" type="integer" value="29" label="higher bound of piRNA range"/>
+        </section>
+        <param name="PPPon" argument="--PPPon" type="boolean" truevalue="true" falsevalue="false" checked="true" label="PPPartners"/>
     </inputs>
     <outputs>
-        <data format="html" name="html_out" label="${tool.name} on ${first_input.name} (${on_string}): HTML report"/>
-        <collection type="list" label="${tool.name}_fastq_outputs" name="output_fastqsanger">
+        <data format="html" name="html_out" label="${tool.name} on ${on_string}: HTML report"/>
+        <collection type="list" label="${tool.name} on ${on_string}: FastQ outputs" name="output_fastqsanger">
             <discover_datasets format ="fastqsanger" pattern="__designation_and_ext__" directory="fastq_dir" />
         </collection>
     </outputs>
     <tests>
         <test>
-            <param name="first_input" value="reads-sample-small.fastq" />
+            <conditional name="inputs">
+                <param name="custom" value="false"/>
+                <param name="fastq" value="reads-sample-small.fastq"/>
+            </conditional>
+            <param name="min" value="18" />
+            <param name="max" value="29" />
             <section name="genome">
                 <conditional name="source">
                     <param name="source" value="history" />
                     <param name="file" value ="genome-small.fa" />
                 </conditional>
+                <param name="mis" value="0" />
             </section>
             <section name="transcripts">
                 <conditional name="source">
@@ -163,44 +203,54 @@
                     <param name="file" value ="transcripts-file-small.fa" />
                 </conditional>
             </section>
-            <section name="TE">
+            <section name="te">
                 <conditional name="source">
                     <param name="source" value="history" />
                     <param name="file" value ="TE-file-small.fa" />
                 </conditional>
+                <param name="misTE" value="3" />
             </section>
-            <section name="miRNAs">
+            <section name="mirnas">
                 <conditional name="source">
                     <param name="source" value="history" />
                     <param name="file" value ="mirbase-21-dme-hairpins-16jul2015.fa" />
                 </conditional>
             </section>
-            <section name="snRNAs">
-                <conditional name="source">
-                    <param name="source" value="history" />
-                    <param name="file" value ="dmel-all-sn-snoRNA-r6.03.fasta" />
+            <section name="snrnas">
+                <conditional name="snrnas">
+                    <param name="use_ref" value="true"/>
+                    <conditional name="source">
+                        <param name="source" value="history" />
+                        <param name="file" value ="dmel-all-sn-snoRNA-r6.03.fasta" />
+                    </conditional>
                 </conditional>
             </section>
-            <section name="rRNAs">
-                <conditional name="source">
-                    <param name="source" value="history" />
-                    <param name="file" value ="dmel-all-rRNA-r6.03.fasta" />
+            <section name="rrnas">
+                <conditional name="rrnas">
+                    <param name="use_ref" value="true"/>
+                    <conditional name="source">
+                        <param name="source" value="history" />
+                        <param name="file" value ="dmel-all-rRNA-r6.03.fasta" />
+                    </conditional>
                 </conditional>
             </section>
-            <section name="tRNAs">
-                <conditional name="source">
-                    <param name="source" value="history" />
-                    <param name="file" value ="dmel-all-tRNA-r6.03.fasta" />
+            <section name="trnas">
+                <conditional name="trnas">
+                    <param name="use_ref" value="true"/>
+                    <conditional name="source">
+                        <param name="source" value="history" />
+                        <param name="file" value ="dmel-all-tRNA-r6.03.fasta" />
+                    </conditional>
                 </conditional>
             </section>
-            <param name="min" value="18" />
-            <param name="max" value="29" />
-            <param name="si_min" value="21" />
-            <param name="si_max" value="21" />
-            <param name="pi_min" value="23" />
-            <param name="pi_max" value="29" />
-            <param name="mis" value="0" />
-            <param name="misTE" value="3" />
+            <section name="sirna">
+                <param name="si_min" value="21" />
+                <param name="si_max" value="21" />
+            </section>
+            <section name="pirna">
+                <param name="pi_min" value="23" />
+                <param name="pi_max" value="29" />
+            </section>
             <param name="PPPon" value="true" />
             <output name='html_out' file="res.html" compare='diff' lines_diff = '10'/>
             <output_collection name="output_fastqsanger" type="list">
