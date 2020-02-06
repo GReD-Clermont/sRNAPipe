@@ -34,7 +34,7 @@
         </xml>
     </macros>
     <requirements>
-        <requirement type="package" version="1.1">srnapipe</requirement>
+        <requirement type="package" version="1.1.1">srnapipe</requirement>
     </requirements>
     <version_command>srnapipe | grep 'version' | grep "version" | cut -d ' ' -f 3</version_command>
     <command detect_errors="aggressive"><![CDATA[
@@ -90,8 +90,6 @@ srnapipe
         #else
     --snRNAs '$snrnas.snrnas.source.indices.fields.path'
         #end if
-    #else
-    --snRNAs "None"
     #end if
 
     #if str($rrnas.rrnas.use_ref) == 'true'
@@ -101,8 +99,6 @@ srnapipe
         #else
     --rRNAs '$rrnas.rrnas.source.indices.fields.path'
         #end if
-    #else
-    --rRNAs "None"
     #end if
 
     #if str($trnas.trnas.use_ref) == 'true'
@@ -112,8 +108,6 @@ srnapipe
         #else
     --tRNAs '$trnas.trnas.source.indices.fields.path'
         #end if
-    #else
-    --tRNAs "None"
     #end if
 
     --si_min $sirna.si_min
@@ -123,6 +117,7 @@ srnapipe
     --dir $html_out.files_path
     --html $html_out
     --PPPon $PPPon
+    --threads '\${GALAXY_SLOTS:-4}'
         ]]>
     </command>
     <inputs>
