@@ -90,6 +90,8 @@ srnapipe
         #else
     --snRNAs '$snrnas.snrnas.source.indices.fields.path'
         #end if
+    #else
+    --snRNAs "None"
     #end if
 
     #if str($rrnas.rrnas.use_ref) == 'true'
@@ -99,6 +101,8 @@ srnapipe
         #else
     --rRNAs '$rrnas.rrnas.source.indices.fields.path'
         #end if
+    #else
+    --rRNAs "None"
     #end if
 
     #if str($trnas.trnas.use_ref) == 'true'
@@ -108,6 +112,8 @@ srnapipe
         #else
     --tRNAs '$trnas.trnas.source.indices.fields.path'
         #end if
+    #else
+    --tRNAs "None"
     #end if
 
     --si_min $sirna.si_min
