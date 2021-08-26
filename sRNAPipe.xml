@@ -1,4 +1,4 @@
-<tool id="sRNAPipe" name="sRNAPipe" version="1.1.1">
+<tool id="sRNAPipe" name="sRNAPipe" version="1.1.2">
     <description>In-depth study of small RNA</description>
     <macros>
         <xml name="source" token_arg="Argument" token_build="Build argument" token_ref="">
@@ -123,7 +123,7 @@ srnapipe
     --dir $html_out.files_path
     --html $html_out
     --PPPon $PPPon
-    --threads '\${GALAXY_SLOTS:-4}'
+    --threads \${GALAXY_SLOTS:-4}
         ]]>
     </command>
     <inputs>
