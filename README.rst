@@ -39,8 +39,8 @@ The process has to be completed by an administrator of your Galaxy server to ins
 
 You can also install the tool manually:
 
-1. Download sRNAPipe
-   You can find sRNAPipe here: https://github.com/brassetjensen/sRNAPipe
+1. Download the sRNAPipe wrapper for Galaxy
+   You can find the wrapper here: https://github.com/GReD-Clermont/sRNAPipe
 
 2. Put the tool into Galaxy's tools directory
    You need to add files into tools/ directory , where all tool-related files are stored, within your Galaxy installation.

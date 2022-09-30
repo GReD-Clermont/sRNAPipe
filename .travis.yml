@@ -11,6 +11,7 @@ jobs:
       addons: {}
       before_install: skip
       install:
+        - pip install -U importlib-metadata
         - pip install flake8 flake8-import-order planemo
         - planemo --version
       script:

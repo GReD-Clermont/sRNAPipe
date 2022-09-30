@@ -1,4 +1,4 @@
-<tool id="sRNAPipe" name="sRNAPipe" version="1.1.2">
+<tool id="sRNAPipe" name="sRNAPipe" version="1.2">
     <description>In-depth study of small RNA</description>
     <macros>
         <xml name="source" token_arg="Argument" token_build="Build argument" token_ref="">
@@ -34,7 +34,7 @@
         </xml>
     </macros>
     <requirements>
-        <requirement type="package" version="1.1.1">srnapipe</requirement>
+        <requirement type="package" version="1.2">srnapipe</requirement>
     </requirements>
     <version_command>srnapipe | grep 'version' | grep "version" | cut -d ' ' -f 3</version_command>
     <command detect_errors="aggressive"><![CDATA[
