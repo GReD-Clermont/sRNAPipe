@@ -43,6 +43,7 @@ before_install:
   - unset JAVA_HOME
 
 install:
+  - pip install -U importlib-metadata
   - pip install planemo
   - planemo conda_init
   - export PATH="$PLANEMO_CONDA_PREFIX/bin:$PATH"
